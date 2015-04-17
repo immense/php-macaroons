@@ -1,0 +1,21 @@
+{
+    "name": "immense/macaroons",
+    "autoload-dev": {
+    },
+    "require": {
+        "php": ">=5.4",
+        "symfony/debug": "2.*",
+        "symfony/stopwatch": "2.*",
+        "symfony/serializer": "2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.6.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris McKnight",
+            "email": "cmcknight@immense.net"
+        }
+    ]
+}
