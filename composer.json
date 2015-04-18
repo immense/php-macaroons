@@ -4,6 +4,7 @@
     },
     "require": {
         "php": ">=5.4",
+        "ext-libsodium": "0.1.3",
         "symfony/debug": "2.*",
         "symfony/stopwatch": "2.*",
         "symfony/serializer": "2.*"
