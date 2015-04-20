@@ -1,22 +1,23 @@
 {
     "name": "immense/macaroons",
-    "autoload-dev": {
-    },
-    "require": {
-        "php": ">=5.4",
-        "ext-libsodium": "0.1.3",
-        "symfony/debug": "2.*",
-        "symfony/stopwatch": "2.*",
-        "symfony/serializer": "2.*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "4.6.*"
-    },
     "license": "MIT",
     "authors": [
-        {
-            "name": "Chris McKnight",
-            "email": "cmcknight@immense.net"
-        }
-    ]
+      {
+        "name": "Chris McKnight",
+        "email": "cmcknight@immense.net"
+      }
+    ],
+    "autoload": {
+      "psr-4": { "Macaroon\\": "lib/Macaroon" }
+    },
+    "require": {
+      "php": ">=5.4",
+      "ext-libsodium": "0.1.3",
+      "symfony/debug": "2.*",
+      "symfony/stopwatch": "2.*",
+      "symfony/serializer": "2.*"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "4.6.*"
+    }
 }
