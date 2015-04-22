@@ -3,6 +3,7 @@
 ## [Unreleased][unreleased] - 2015-04-22
 ### Added
 - Add description field to `composer.json`
+- Add repositories field to `composer.json`
 
 ## [0.1.0] - 2015-04-22
 ### Added

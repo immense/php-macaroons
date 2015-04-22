@@ -14,6 +14,12 @@
     "authentication",
     "authorization"
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/immense/php-macaroons"
+    }
+  ],
   "autoload": {
     "psr-4": { "Macaroons\\": "lib/Macaroons" }
   },
