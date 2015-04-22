@@ -1,5 +1,6 @@
 {
   "name": "immense/macaroons",
+  "description": "PHP implementation of Macaroons",
   "license": "MIT",
   "authors": [
     {
