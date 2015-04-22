@@ -1,6 +1,6 @@
 <?php
 
-namespace Macaroon;
+namespace Macaroons;
 
 class Utils
 {
@@ -21,13 +21,8 @@ class Utils
     return hash_hmac($digest, $data, $key, true);
   }
 
-  public static function serialize($value)
-  {
-    return trim( base64_encode( $value ) );
-  }
-
   public static function generateDerivedKey($key)
   {
-    return Utils::hmac('macaroons-key-generator', $key);
+    return self::hmac('macaroons-key-generator', $key);
   }
 }
