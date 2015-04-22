@@ -5,24 +5,29 @@ namespace Macaroons;
 class Caveat
 {
   private $caveat_id;
-  private $location;
   private $verification_id;
+  private $caveat_location;
 
-  public function __construct($caveat_id, $verification_id = NULL, $location = NULL)
+  public function __construct($caveatId, $verificationId = NULL, $caveatLocation = NULL)
   {
-    $this->id = $caveat_id;
-    $this->verification_id = $verification_id;
-    $this->location = $location;
+    $this->caveat_id = $caveatId;
+    $this->verification_id = $verificationId;
+    $this->caveat_location = $caveatLocation;
   }
 
-  public function getId()
+  public function getCaveatId()
   {
-    return $this->id;
+    return $this->caveat_id;
   }
 
-  public function getLocation()
+  public function getCaveatLocation()
   {
-    return $this->location;
+    return $this->caveat_location;
+  }
+
+  public function getVerificationId()
+  {
+    return $this->verification_id;
   }
 
   public function isFirstParty()
