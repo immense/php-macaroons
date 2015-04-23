@@ -4,14 +4,14 @@ namespace Macaroons;
 
 class Utils
 {
-  public static function hex($value)
+  public static function hexlify($value)
   {
     return join('', array_map(function($byte){
         return sprintf("%02X", $byte);
       }, unpack('C*', $value)));
   }
 
-  public static function unhex($value)
+  public static function unhexlify($value)
   {
     return pack('H*', $value);
   }
@@ -35,6 +35,21 @@ class Utils
     else if (strlen($str) < $size)
       return str_pad($str, $size, "\0", STR_PAD_RIGHT);
     return $str;
+  }
+
+  public static function base64_strict_encode($data)
+  {
+    return strtr(base64_encode($data), array("\r\n" => '', "\r" => '', "\n" => ''));
+  }
+
+  public static function base64_url_encode($data)
+  {
+    return rtrim(strtr(self::base64_strict_encode($data), array('+' => '-', '/' => '_')), '=');
+  }
+
+  public static function base64_url_decode($data)
+  {
+    return base64_decode(str_pad(strtr($data, array('-' => '+', '_' => '/')), strlen($data) % 4, '=', STR_PAD_RIGHT));
   }
 
   public static function signFirstPartyCaveat($signature, $predicate)

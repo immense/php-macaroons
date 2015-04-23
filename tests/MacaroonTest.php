@@ -1,13 +1,15 @@
 <?php
 namespace Macaroons\Tests;
 
+use Macaroons\Macaroon;
+
 class MacaroonTest extends \PHPUnit_Framework_TestCase
 {
   protected $m;
 
   protected function setUp()
   {
-    $this->m = new \Macaroons\Macaroon(
+    $this->m = new Macaroon(
                                       'this is our super secret key; only we should know it',
                                       'we used our secret key',
                                       'https://mybank/'

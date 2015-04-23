@@ -1,7 +1,9 @@
 # TODO
 
 - Serialization/Deserialization
-  - Packetization
+  - Binary
+    - Packetization
+  - JSON
 - Verifier
 - Improve README
 - Better tests

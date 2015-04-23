@@ -51,7 +51,7 @@ Adds macaroon creation
   - `libsodium-php` installation instructions
   - Updated command to run tests
 
-## [Unreleased][unreleased]
+## [Unreleased][unreleased] - 2015-04-17
 ### Added
 - Created composer project
 - Setup test suite and `phpunit.xml`

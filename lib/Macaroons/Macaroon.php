@@ -28,7 +28,7 @@ class Macaroon
 
   public function getSignature()
   {
-    return strtolower( Utils::hex( $this->signature ) );
+    return strtolower( Utils::hexlify( $this->signature ) );
   }
 
   public function addFirstPartyCaveat($predicate)
@@ -44,7 +44,7 @@ class Macaroon
     // Generate cipher using libsodium
     $nonce = \Sodium::randombytes_buf(\Sodium::CRYPTO_SECRETBOX_NONCEBYTES);
     $ciphertext = \Sodium::crypto_secretbox($truncatedOrPaddedSignature, $nonce, $derivedCaveatKey);
-    $verificationId = base64_encode($ciphertext);
+    $verificationId = Utils::base64_strict_encode($ciphertext);
     $this->caveats[] = new Caveat($caveatId, $verificationId, $caveatLocation);
     $this->signature = Utils::signThirdPartyCaveat($this->signature, $verificationId, $caveatId);
   }
