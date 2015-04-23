@@ -10,7 +10,8 @@ php:
 before_script:
   - curl https://download.libsodium.org/libsodium/releases/libsodium-1.0.2.tar.gz | tar zx
   - cd libsodium-1.0.2
-  - ./configure && make && make check && make install
+  - ./configure && make && make check
+  - sudo make install
   - pecl install libsodium-beta
   - composer self-update
   - composer install --prefer-source --no-ansi --no-interaction
