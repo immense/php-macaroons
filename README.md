@@ -23,7 +23,17 @@ This is a PHP implementation of Macaroons. It is still under active development.
 
 ## Installation via [composer](https://getcomposer.org)
 
-* TODO
+In your project directory:
+
+* Create a `composer.json` in your project if necessary
+  ```bash
+  composer init
+  ```
+
+* Install the latest version as a project depedency
+  ```bash
+  composer require immense/macaroons
+  ```
 
 ## Tests
 

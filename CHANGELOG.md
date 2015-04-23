@@ -1,5 +1,10 @@
 # PHP Macaroons Changelog
 
+## [0.2.1] - 2015-04-23
+
+## Changed
+- Added comopser installation instructions to README
+
 ## [0.2.0] - 2015-04-22
 
 Adds first and third party caveats
