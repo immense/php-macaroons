@@ -26,10 +26,8 @@ class Utils
     return self::hmac('macaroons-key-generator', $key);
   }
 
-  public static function truncateOrPad($str, $size)
+  public static function truncateOrPad($str, $size = 32)
   {
-    if (!$size)
-      $size = 32;
     if (strlen($str) > $size)
       return substr($str, 0, $size);
     else if (strlen($str) < $size)

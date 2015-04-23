@@ -1,5 +1,9 @@
 # PHP Macaroons Changelog
 
+## [0.3.1] - 2015-04-23
+### Fixed
+- Changed size argument for Utils::truncateOrPad to be optional
+
 ## [0.3.0] - 2015-04-23
 
 Adds binary serialization and deserialization
