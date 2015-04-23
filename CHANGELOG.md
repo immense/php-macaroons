@@ -1,5 +1,30 @@
 # PHP Macaroons Changelog
 
+## [0.3.0] - 2015-04-23
+
+Adds binary serialization and deserialization
+
+### Added
+- Utils::base64_strict_encode
+- Utils::base64_url_encode
+- Utils::base64_url_decode
+- Packet class for packet data
+- Packet#getKey
+- Packet#getData
+- Packet#packetize
+- Packet#encode
+- Packet#decode
+- Macaroon#setSignature
+- Macaroon#setCaveats
+- Macaroon#serialize
+- Macaroon::deserialize
+- .travis.yml
+
+### Changed
+- Utils::hex renamed to Utils::hexlify
+- Utils::unhex renamed to Utils::unhexlify
+- phpunit.xml changed to add code coverage reporting
+
 ## [0.2.1] - 2015-04-23
 
 ## Changed

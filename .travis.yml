@@ -1,4 +1,5 @@
 language: php
+sudo: true
 
 php:
   - 5.3
@@ -8,7 +9,7 @@ php:
   - hhvm
 
 before_script:
-  - sh ./bin/install-libsodium.sh
+  - ./bin/install-libsodium.sh
   - composer self-update
   - composer install --prefer-source --no-ansi --no-interaction
 
