@@ -8,9 +8,11 @@ php:
   - hhvm
 
 before_script:
+  - wget https://github.com/jedisct1/libsodium/releases/download/1.0.2/libsodium-1.0.2.tar.gz
+  - cd libsodium-1.0.2
+  - ./configure && make && make check && make install
   - pecl install libsodium-beta
-  - echo "extension = libsodium.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer self-update
-  - composer install --prefer-source --no-interaction
+  - composer install --prefer-source --no-ansi --no-interaction
 
 script: phpunit
