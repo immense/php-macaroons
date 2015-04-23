@@ -8,7 +8,9 @@ php:
   - hhvm
 
 before_script:
+  - pecl install libsodium
+  - echo "extension = libsodium.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - composer install --prefer-source --no-interaction
 
 script: phpunit
