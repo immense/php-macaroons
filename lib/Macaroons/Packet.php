@@ -15,9 +15,14 @@ class Packet
 
   public function packetize($packets)
   {
-    return join('', array_map(function($key, $data){
-      return $this->encode($key, $data);
-    }, array_keys($packets), $packets));
+    // PHP 5.3 workaround
+    // $this isn't bound in anonymous functions
+    return join('',
+                    array_map(
+                      array($this, 'mapPacketsCallback'),
+                      array_keys($packets), $packets
+                    )
+                );
   }
 
   public function getKey()
@@ -28,6 +33,11 @@ class Packet
   public function getData()
   {
     return $this->data;
+  }
+
+  private function mapPacketsCallback($key, $data)
+  {
+    return $this->encode($key, $data);
   }
 
   private function encode($key, $data)

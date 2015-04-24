@@ -1,5 +1,17 @@
 # PHP Macaroons Changelog
 
+## [0.3.2] - 2015-04-24
+### Added
+- Add Travis CI, Coveralls, Packagist badges to README
+- Added documentation about HHVM to README
+- Added .coveralls.yml
+
+### Fixed
+- Fixed Packet class to be PHP 5.3 compatible when using array_map
+
+### Removed
+- HHVM from .travis.yml build matrix
+
 ## [0.3.1] - 2015-04-23
 ### Fixed
 - Changed size argument for Utils::truncateOrPad to be optional

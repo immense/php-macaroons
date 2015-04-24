@@ -1,4 +1,8 @@
 ## Macaroons
+[![Build Status](https://travis-ci.org/immense/php-macaroons.svg?branch=master)](https://travis-ci.org/immense/php-macaroons)
+[![Coverage Status](https://img.shields.io/coveralls/immense/php-macaroons.svg)](https://coveralls.io/r/immense/php-macaroons?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/immense/macaroons/v/stable)](https://packagist.org/packages/immense/macaroons)
+
 
 This is a PHP implementation of Macaroons. It is still under active development.
 
@@ -43,3 +47,12 @@ Files must end with `Test` e.g. `ClassTest.php`
   ```bash
   phpunit
   ```
+
+## HHVM
+
+Currently [HHVM](http://hhvm.com) is not supported because the PHP libsodium
+bindings do not support HHVM.
+
+## License
+
+[![License](https://poser.pugx.org/immense/macaroons/license.svg)](./LICENSE)
