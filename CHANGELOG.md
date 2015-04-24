@@ -1,5 +1,9 @@
 # PHP Macaroons Changelog
 
+## [0.3.3] - 2015-04-24
+### Fixed
+- Fixes coveralls reporting
+
 ## [0.3.2] - 2015-04-24
 ### Added
 - Add Travis CI, Coveralls, Packagist badges to README
