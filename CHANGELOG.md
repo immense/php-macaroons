@@ -1,5 +1,9 @@
 # PHP Macaroons Changelog
 
+## [Unreleased][unreleased] - 2015-04-24
+### Fixed
+- Fixes coveralls reporting
+
 ## [0.3.3] - 2015-04-24
 ### Fixed
 - Fixes coveralls reporting
