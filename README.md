@@ -43,7 +43,8 @@ In your project directory:
 
 Files must end with `Test` e.g. `ClassTest.php`
 
-* Run tests from the project root
+* From the `php-macaroons` root directory:
+
   ```bash
   phpunit
   ```
