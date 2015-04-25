@@ -34,7 +34,7 @@ In your project directory:
   composer init
   ```
 
-* Install the latest version as a project depedency
+* Install the latest version as a project dependency
   ```bash
   composer require immense/macaroons
   ```
