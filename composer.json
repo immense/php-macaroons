@@ -18,6 +18,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/immense/php-macaroons"
+    },
+    {
+      "url": "https://github.com/cmckni3/php-coveralls",
+      "type": "vcs"
     }
   ],
   "autoload": {
@@ -26,12 +30,12 @@
   "require": {
     "php": ">=5.3.6",
     "ext-libsodium": "0.1.3",
-    "symfony/debug": "2.*",
-    "symfony/stopwatch": "2.*",
     "symfony/serializer": "2.*"
   },
   "require-dev": {
+    "symfony/debug": "2.*",
+    "symfony/stopwatch": "2.*",
     "phpunit/phpunit": "4.6.*",
-    "satooshi/php-coveralls": "0.6.*"
+    "satooshi/php-coveralls": "dev-bugfix"
   }
 }
