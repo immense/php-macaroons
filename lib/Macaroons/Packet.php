@@ -13,7 +13,7 @@ class Packet
     $this->data = $data;
   }
 
-  public function packetize($packets)
+  public function packetize(Array $packets)
   {
     // PHP 5.3 workaround
     // $this isn't bound in anonymous functions

@@ -9,7 +9,6 @@ php:
 
 before_script:
   - ./bin/install-libsodium.sh
-  - ./bin/fix-env-vars.sh
   - composer self-update
   - composer install --prefer-source --no-ansi --no-interaction
 

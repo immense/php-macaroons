@@ -1,5 +1,15 @@
 # PHP Macaroons Changelog
 
+## [0.3.4] - 2015-04-24
+### Added
+- Added type hinting to Packet methods
+- Added test skeleton for Verifier
+- Added test skeleton for JSON serialization/deserialization
+- Added tests for Caveat class
+
+### Removed
+- Remove unnecessary environment variables script for coveralls
+
 ## [Unreleased][unreleased] - 2015-04-24
 ### Fixed
 - Fixes coveralls reporting
