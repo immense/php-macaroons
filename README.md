@@ -1,6 +1,6 @@
 ## Macaroons
 [![Build Status](https://travis-ci.org/immense/php-macaroons.svg?branch=master)](https://travis-ci.org/immense/php-macaroons)
-[![Coverage Status](https://img.shields.io/coveralls/immense/php-macaroons.svg)](https://coveralls.io/r/immense/php-macaroons?branch=master)
+[![Coverage Status](https://coveralls.io/repos/immense/php-macaroons/badge.svg?branch=master)](https://coveralls.io/r/immense/php-macaroons?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/immense/macaroons/v/stable)](https://packagist.org/packages/immense/macaroons)
 
 
