@@ -1,6 +1,10 @@
 # PHP Macaroons Changelog
 
 ## [0.3.4] - 2015-04-24
+### Fixed
+- Fixes Verifier skeleton test error
+
+## [0.3.4] - 2015-04-24
 ### Added
 - Added type hinting to Packet methods
 - Added test skeleton for Verifier

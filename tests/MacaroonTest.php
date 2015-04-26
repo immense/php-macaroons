@@ -5,6 +5,7 @@ use Macaroons\Macaroon;
 
 class MacaroonTest extends \PHPUnit_Framework_TestCase
 {
+  // TODO: Use data provider
   protected $m;
 
   protected function setUp()
@@ -42,20 +43,20 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
 
   public function testThirdPartyCaveat()
   {
-    $caveatKey = '4; guaranteed random by a fair toss of the dice';
-    $caveatId = 'this was how we remind auth of key/pred';
-    $caveatLocation = 'https://auth.mybank/';
-    $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
+    // $caveatKey = '4; guaranteed random by a fair toss of the dice';
+    // $caveatId = 'this was how we remind auth of key/pred';
+    // $caveatLocation = 'https://auth.mybank/';
+    // $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
     $this->markTestSkipped('Write a test for third party caveats when serializers are done');
   }
 
   public function testFirstAndThirdPartyCaveats()
   {
-    $this->m->addFirstPartyCaveat('account = 3735928559');
-    $caveatKey = '4; guaranteed random by a fair toss of the dice';
-    $caveatId = 'this was how we remind auth of key/pred';
-    $caveatLocation = 'https://auth.mybank/';
-    $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
+    // $this->m->addFirstPartyCaveat('account = 3735928559');
+    // $caveatKey = '4; guaranteed random by a fair toss of the dice';
+    // $caveatId = 'this was how we remind auth of key/pred';
+    // $caveatLocation = 'https://auth.mybank/';
+    // $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
     $this->markTestSkipped('Write a test for third party caveats when serializers are done');
   }
 }
