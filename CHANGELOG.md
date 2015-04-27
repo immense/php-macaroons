@@ -1,5 +1,9 @@
 # PHP Macaroons Changelog
 
+## [Unreleased][unreleased] - 2015-04-27
+### Changed
+- Increased test coverage of Utils class
+
 ## [0.3.4] - 2015-04-24
 ### Fixed
 - Fixes Verifier skeleton test error

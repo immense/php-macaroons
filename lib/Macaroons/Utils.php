@@ -58,8 +58,8 @@ class Utils
   public static function signThirdPartyCaveat($signature, $verificationId, $caveatId)
   {
     $verification_id_hmac = self::hmac($signature, $verificationId);
-    $caveat_id_hmac = self::hmac($signature, $caveatId);
-    $combined = $verification_id_hmac . $caveat_id_hmac;
+    $caveat_id_hmac       = self::hmac($signature, $caveatId);
+    $combined             = $verification_id_hmac . $caveat_id_hmac;
     return self::hmac($signature, $combined);
   }
 }

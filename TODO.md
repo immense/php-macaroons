@@ -2,8 +2,13 @@
 
 - Serialization/Deserialization
   - JSON
-- Discharges
-  - Bind
+- Macaroon
+  - prepareForRequest
+  - Discharges
+    - bindSignature
 - Verifier
+  - verifyDischarge
+  - verifyFirstPartyCaveat
+  - verifyThirdPartyCaveat
 - Improve README
 - Better tests

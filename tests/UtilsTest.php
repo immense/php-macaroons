@@ -28,6 +28,11 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals("foo\0\0", Utils::truncateOrPad('foo', 5));
   }
 
+  public function testNoPadding()
+  {
+    $this->assertEquals('foo', Utils::truncateOrPad('foo', 3));
+  }
+
   public function testSignFirstPartyCaveat()
   {
     $rootSignature = 'e3d9e02908526c4c0039ae15114115d97fdd68bf2ba379b342aaf0f617d0552f';
