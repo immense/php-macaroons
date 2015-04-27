@@ -1,6 +1,9 @@
 # PHP Macaroons Changelog
 
 ## [Unreleased][unreleased] - 2015-04-27
+### Added
+- Added LICENSE file
+
 ### Changed
 - Increased test coverage of Utils class
 
