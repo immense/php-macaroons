@@ -31,6 +31,25 @@ class Macaroon
     return strtolower( Utils::hexlify( $this->signature ) );
   }
 
+  public function getFirstPartyCaveats()
+  {
+    return array_filter($this->caveats, function(Caveat $caveat){
+      return $caveat->getIsFirstParty();
+    });
+  }
+
+  public function getThirdPartyCaveats()
+  {
+    return array_filter($this->caveats, function(Caveat $caveat){
+      return $caveat->getIsThirdParty();
+    });
+  }
+
+  public function getCaveats()
+  {
+    return $this->caveats;
+  }
+
   public function setSignature($signature)
   {
     if (!$signature)
@@ -45,7 +64,7 @@ class Macaroon
 
   public function addFirstPartyCaveat($predicate)
   {
-    $this->caveats[] = new Caveat($predicate);
+    array_push($this->caveats, new Caveat($predicate));
     $this->signature = Utils::signFirstPartyCaveat($this->signature, $predicate);
   }
 
@@ -57,7 +76,7 @@ class Macaroon
     $nonce = \Sodium::randombytes_buf(\Sodium::CRYPTO_SECRETBOX_NONCEBYTES);
     $ciphertext = \Sodium::crypto_secretbox($truncatedOrPaddedSignature, $nonce, $derivedCaveatKey);
     $verificationId = Utils::base64_strict_encode($ciphertext);
-    $this->caveats[] = new Caveat($caveatId, $verificationId, $caveatLocation);
+    array_push($this->caveats, new Caveat($caveatId, $verificationId, $caveatLocation));
     $this->signature = Utils::signThirdPartyCaveat($this->signature, $verificationId, $caveatId);
   }
 
@@ -93,22 +112,21 @@ class Macaroon
 
   public static function deserialize($serialized)
   {
-    $location = NULL;
+    $location   = NULL;
     $identifier = NULL;
-    $signature = NULL;
-    $caveats = array();
-    $decoded = Utils::base64_url_decode($serialized);
-
-    $index = 0;
+    $signature  = NULL;
+    $caveats    = array();
+    $decoded    = Utils::base64_url_decode($serialized);
+    $index      = 0;
 
     while ($index < strlen($decoded))
     {
       // TOOD: Replace 4 with PACKET_PREFIX_LENGTH
-      $packetLength = hexdec(substr($decoded, $index, 4));
+      $packetLength    = hexdec(substr($decoded, $index, 4));
       $packetDataStart = $index + 4;
-      $strippedPacket = substr($decoded, $packetDataStart, strpos($decoded, "\n", $index) - $packetDataStart);
-      $packet = new Packet();
-      $packet = $packet->decode($strippedPacket);
+      $strippedPacket  = substr($decoded, $packetDataStart, strpos($decoded, "\n", $index) - $packetDataStart);
+      $packet          = new Packet();
+      $packet          = $packet->decode($strippedPacket);
 
       switch($packet->getKey())
       {
