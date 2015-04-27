@@ -49,6 +49,12 @@ Files must end with `Test` e.g. `ClassTest.php`
   phpunit
   ```
 
+* Run tests on file change
+  ```bash
+  gem install watchr
+  watchr ./autotest-watchr.rb
+  ```
+
 ## HHVM
 
 Currently [HHVM](http://hhvm.com) is not supported because the PHP libsodium
