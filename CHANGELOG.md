@@ -6,18 +6,18 @@
 - Added watchr script for TDD
 
 ### Changed
-- Increased test coverage of Utils class
+- Increased test coverage of `Utils` class
 
 ## [0.3.4] - 2015-04-24
 ### Fixed
-- Fixes Verifier skeleton test error
+- Fixes `Verifier` skeleton test error
 
 ## [0.3.4] - 2015-04-24
 ### Added
-- Added type hinting to Packet methods
-- Added test skeleton for Verifier
+- Added type hinting to `Packet` methods
+- Added test skeleton for `Verifier`
 - Added test skeleton for JSON serialization/deserialization
-- Added tests for Caveat class
+- Added tests for `Caveat` class
 
 ### Removed
 - Remove unnecessary environment variables script for coveralls
@@ -37,14 +37,14 @@
 - Added .coveralls.yml
 
 ### Fixed
-- Fixed Packet class to be PHP 5.3 compatible when using array_map
+- Fixed `Packet` class to be PHP 5.3 compatible when using array_map
 
 ### Removed
 - HHVM from .travis.yml build matrix
 
 ## [0.3.1] - 2015-04-23
 ### Fixed
-- Changed size argument for Utils::truncateOrPad to be optional
+- Changed size argument for Utils::truncateOrPad to be optional (defaults to 32)
 
 ## [0.3.0] - 2015-04-23
 
@@ -54,7 +54,7 @@ Adds binary serialization and deserialization
 - Utils::base64_strict_encode
 - Utils::base64_url_encode
 - Utils::base64_url_decode
-- Packet class for packet data
+- `Packet` class for packet data
 - Packet#getKey
 - Packet#getData
 - Packet#packetize
@@ -74,7 +74,7 @@ Adds binary serialization and deserialization
 ## [0.2.1] - 2015-04-23
 
 ## Changed
-- Added comopser installation instructions to README
+- Added composer installation instructions to README
 
 ## [0.2.0] - 2015-04-22
 

@@ -96,7 +96,7 @@ class Verifier
    */
   private function verifyCaveats(Macaroon $macaroon, Array $dischargeMacaroons)
   {
-    foreach ($macaroon->getCaveats() as $caveats)
+    foreach ($macaroon->getCaveats() as $caveat)
     {
       $caveatMet = false;
       if ($caveat->isFirstParty())
@@ -108,10 +108,22 @@ class Verifier
     }
   }
 
-  // TODO: Implement
   private function verifyFirstPartyCaveat(Caveat $caveat)
   {
-    return false;
+    $caveatMet = false;
+    if (in_array($caveat->getCaveatId(), $this->predicates))
+      $caveatMet = true;
+    else
+    {
+      foreach ($this->callbacks as $callback)
+      {
+        if ($callback($caveat->getCaveatId()))
+          $caveatMet = true;
+      }
+    }
+    if ($caveatMet)
+      $this->calculatedSignature = Utils::signFirstPartyCaveat($this->calculatedSignature, $caveat->getCaveatId());
+    return $caveatMet;
   }
 
   // TODO: Implement

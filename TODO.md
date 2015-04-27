@@ -8,7 +8,6 @@
     - bindSignature
 - Verifier
   - verifyDischarge
-  - verifyFirstPartyCaveat
   - verifyThirdPartyCaveat
 - Improve README
 - Better tests

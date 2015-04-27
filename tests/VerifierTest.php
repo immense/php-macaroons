@@ -12,10 +12,16 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
   // TODO: use a data provider
   private $verifier;
   private $secretKey;
+  private $m;
   public function setUp()
   {
     $this->verifier = new Verifier();
     $this->secretKey = 'this is our super secret key; only we should know it';
+    $this->m = new Macaroon(
+                            $this->secretKey,
+                            'we used our secret key',
+                            'https://mybank/'
+                            );
   }
 
   public function testSatisfyExactRequiresPredicate()
@@ -52,12 +58,7 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
 
   public function testShouldVerifyRootMacaroon()
   {
-    $m = new Macaroon(
-                      $this->secretKey,
-                      'we used our secret key',
-                      'https://mybank/'
-                      );
-    $this->assertTrue($this->verifier->verify($m, $this->secretKey));
+    $this->assertTrue($this->verifier->verify($this->m, $this->secretKey));
   }
 
   public function testShouldNotVerifyInvalidRootMacaroon()
@@ -69,18 +70,21 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
                       'https://mybank/'
                       );
     $this->verifier->verify($m, $this->secretKey);
-    $this->markTestSkipped('TODO');
   }
 
   public function testShouldVerifyMacaroonWithFirstPartyCaveats()
   {
-    $this->markTestSkipped('TODO');
+    $this->m->addFirstPartyCaveat('test = caveat');
+    $this->verifier->satisfyExact('test = caveat');
+    $this->assertTrue($this->verifier->verify($this->m, $this->secretKey));
   }
 
   public function testShouldNotVerifyMacaroonWithInvalidFirstPartyCaveats()
   {
-    // $this->setExpectedException('DomainException');
-    $this->markTestSkipped('TODO');
+    $this->setExpectedException('DomainException');
+    $this->m->addFirstPartyCaveat('test = caveat');
+    $this->verifier->satisfyExact('test = foobar');
+    $this->assertTrue($this->verifier->verify($this->m, $this->secretKey));
   }
 
   public function testShouldVerifyMacaroonWithThirdPartyCaveats()

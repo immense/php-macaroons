@@ -10,7 +10,7 @@ class Caveat
 
   public function __construct($caveatId, $verificationId = NULL, $caveatLocation = NULL)
   {
-    $this->caveat_id = $caveatId;
+    $this->caveat_id       = $caveatId;
     $this->verification_id = $verificationId;
     $this->caveat_location = $caveatLocation;
   }
