@@ -19,12 +19,14 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
 
   public function testWithoutCaveatsTest()
   {
-    $this->assertEquals('e3d9e02908526c4c0039ae15114115d97fdd68bf2ba379b342aaf0f617d0552f', $this->m->getSignature());
+    $expectedSignature = 'e3d9e02908526c4c0039ae15114115d97fdd68bf2ba379b342aaf0f617d0552f';
+    $this->assertEquals($expectedSignature, $this->m->getSignature());
   }
 
   public function testSerialize()
   {
-    $this->assertEquals('MDAxZGxvY2F0aW9uIGh0dHBzOi8vbXliYW5rLwowMDI2aWRlbnRpZmllciB3ZSB1c2VkIG91ciBzZWNyZXQga2V5CjAwMmZzaWduYXR1cmUg49ngKQhSbEwAOa4VEUEV2X_daL8ro3mzQqrw9hfQVS8K', $this->m->serialize());
+    $binarySerialization = 'MDAxZGxvY2F0aW9uIGh0dHBzOi8vbXliYW5rLwowMDI2aWRlbnRpZmllciB3ZSB1c2VkIG91ciBzZWNyZXQga2V5CjAwMmZzaWduYXR1cmUg49ngKQhSbEwAOa4VEUEV2X_daL8ro3mzQqrw9hfQVS8K';
+    $this->assertEquals($binarySerialization, $this->m->serialize());
   }
 
   public function testDeserialize()
@@ -38,7 +40,8 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
   public function testFirstPartyCaveat()
   {
     $this->m->addFirstPartyCaveat('test = caveat');
-    $this->assertEquals('197bac7a044af33332865b9266e26d493bdd668a660e44d88ce1a998c23dbd67', $this->m->getSignature());
+    $expectedSignature = '197bac7a044af33332865b9266e26d493bdd668a660e44d88ce1a998c23dbd67';
+    $this->assertEquals($expectedSignature, $this->m->getSignature());
   }
 
   public function testThirdPartyCaveat()
@@ -64,12 +67,13 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
   {
     $this->m->addFirstPartyCaveat('account = 3735928559');
     $caveatKey  = '4; guaranteed random by a fair toss of the dice';
-    $identifier = 'this was how we remind auth of key/pred';
-    $this->m->addThirdPartyCaveat($caveatKey, $identifier, 'https://auth.mybank/');
+    $caveatId = 'this was how we remind auth of key/pred';
+    $caveatLocation = 'https://auth.mybank/';
+    $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
 
     $discharge  = new Macaroon(
                                 $caveatKey,
-                                $identifier,
+                                $caveatId,
                                 'https://auth.mybank/'
                               );
     $discharge->addFirstPartyCaveat('time < 2015-01-01T00:00');
@@ -81,12 +85,12 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
   {
     $this->m->addFirstPartyCaveat('account = 3735928559');
     $caveatKey  = '4; guaranteed random by a fair toss of the dice';
-    $identifier = 'this was how we remind auth of key/pred';
-    $this->m->addThirdPartyCaveat($caveatKey, $identifier, 'https://auth.mybank/');
+    $caveatId = 'this was how we remind auth of key/pred';
+    $this->m->addThirdPartyCaveat($caveatKey, $caveatId, 'https://auth.mybank/');
 
     $discharge  = new Macaroon(
                                 $caveatKey,
-                                $identifier,
+                                $caveatId,
                                 'https://auth.mybank/'
                               );
     $discharge->addFirstPartyCaveat('time < 2015-01-01T00:00');

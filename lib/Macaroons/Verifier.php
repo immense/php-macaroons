@@ -27,6 +27,24 @@ class Verifier
   }
 
   /**
+   * sets array of predicates
+   * @param Array $predicates
+   */
+  public function setPredicates(Array $predicates)
+  {
+    $this->predicates = $predicates;
+  }
+
+  /**
+   * set array of callbacks
+   * @param Array $callbacks
+   */
+  public function setCallbacks(Array $callbacks)
+  {
+    $this->callbacks = $callbacks;
+  }
+
+  /**
    * adds a predicate to the verifier
    * @param string
    */
@@ -54,6 +72,7 @@ class Verifier
   }
 
   /**
+   * [verify description]
    * @param  Macaroon $macaroon
    * @param  string   $key
    * @param  Array    $dischargeMacaroons
@@ -70,14 +89,22 @@ class Verifier
                                   );
   }
 
-  public function verifyDischarge(Macaroon $root, Macaroon $macaroon, $key, Array $dischargeMacaroons = array())
+  /**
+   * [verifyDischarge description]
+   * @param  Macaroon    $rootMacaroon
+   * @param  Macaroon    $macaroon
+   * @param  string      $key
+   * @param  Array|array $dischargeMacaroons
+   * @return boolean|throws DomainException
+   */
+  public function verifyDischarge(Macaroon $rootMacaroon, Macaroon $macaroon, $key, Array $dischargeMacaroons = array())
   {
     $this->calculatedSignature = Utils::hmac($key, $macaroon->getIdentifier());
     $this->verifyCaveats($macaroon, $dischargeMacaroons);
 
-    if ($root != $macaroon)
+    if ($rootMacaroon != $macaroon)
     {
-      $this->calculatedSignature = $root->bindSignature(strtolower(Utils::hexlify($this->calculatedSignature)));
+      $this->calculatedSignature = $rootMacaroon->bindSignature(strtolower(Utils::hexlify($this->calculatedSignature)));
     }
 
     $signature = Utils::unhexlify($macaroon->getSignature());
@@ -93,7 +120,7 @@ class Verifier
    * @param  Macaroon
    * @param  Array
    */
-  private function verifyCaveats(Macaroon $macaroon, Array $dischargeMacaroons)
+  private function verifyCaveats(Macaroon $macaroon, Array $dischargeMacaroons = array())
   {
     foreach ($macaroon->getCaveats() as $caveat)
     {
@@ -122,13 +149,45 @@ class Verifier
     }
     if ($caveatMet)
       $this->calculatedSignature = Utils::signFirstPartyCaveat($this->calculatedSignature, $caveat->getCaveatId());
+
     return $caveatMet;
   }
 
   // TODO: Implement
-  private function verifyThirdPartyCaveat(Caveat $caveat, Macaroon $root, Array $dischargeMacaroons)
+  private function verifyThirdPartyCaveat(Caveat $caveat, Macaroon $rootMacaroon, Array $dischargeMacaroons)
   {
-    return false;
+    $caveatMet = false;
+
+    $dischargesMatchingCaveat = array_filter($dischargeMacaroons, function($discharge) use ($rootMacaroon, $caveat) {
+      return $discharge->getIdentifier() === $caveat->getCaveatId();
+    });
+
+    $caveatMacaroon = array_shift($dischargesMatchingCaveat);
+
+    if (!$caveatMacaroon)
+      throw new \DomainException("Caveat not met. No discharge macaroon found for identifier: {$caveat->getCaveatId()}");
+
+    $caveatKey = $this->extractCaveatKey($this->calculatedSignature, $caveat);
+    $caveatMacaroonVerifier = new Verifier();
+    $caveatMacaroonVerifier->setPredicates($this->predicates);
+    $caveatMacaroonVerifier->setCallbacks($this->callbacks);
+
+    $caveatMet = $caveatMacaroonVerifier->verifyDischarge(
+                                                          $rootMacaroon,
+                                                          $caveatMacaroon,
+                                                          $caveatKey,
+                                                          $dischargeMacaroons
+                                                          );
+    if ($caveatMet)
+    {
+      $this->calculatedSignature = Utils::signThirdPartyCaveat(
+                                                                $this->calculatedSignature,
+                                                                $caveat->getVerificationId(),
+                                                                $caveat->getCaveatId()
+                                                              );
+    }
+
+    return $caveatMet;
   }
 
   /**
@@ -139,6 +198,7 @@ class Verifier
    */
   private function extractCaveatKey($signature, Caveat $caveat)
   {
+    $nonce          = \Sodium::randombytes_buf(\Sodium::CRYPTO_SECRETBOX_NONCEBYTES);
     $key            = Utils::truncateOrPad($signature);
     $verificationId = base64_decode($caveat->getVerificationId());
     return \Sodium::crypto_secretbox_open($verificationId, $nonce, $key);
@@ -157,6 +217,7 @@ class Verifier
   {
     $ret = strlen($a) ^ strlen($b);
     $ret |= array_sum(unpack("C*", $a^$b));
+
     return !$ret;
   }
 }
