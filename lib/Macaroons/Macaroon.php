@@ -52,7 +52,7 @@ class Macaroon
 
   public function setSignature($signature)
   {
-    if (!$signature)
+    if (!isset($signature))
       throw new \InvalidArgumentException('Must supply updated signature');
     $this->signature = $signature;
   }
@@ -78,6 +78,31 @@ class Macaroon
     $verificationId = Utils::base64_strict_encode($ciphertext);
     array_push($this->caveats, new Caveat($caveatId, $verificationId, $caveatLocation));
     $this->signature = Utils::signThirdPartyCaveat($this->signature, $verificationId, $caveatId);
+  }
+
+  /**
+   * [prepareForRequest description]
+   * @param  Macaroon $macaroon
+   * @return Macaroon           bound Macaroon (protected discharge)
+   */
+  public function prepareForRequest(Macaroon $macaroon)
+  {
+    $boundMacaroon = clone $macaroon;
+    $boundMacaroon->setSignature($this->bindSignature($macaroon->getSignature()));
+    return $boundMacaroon;
+  }
+
+  /**
+   * [bindSignature description]
+   * @param  string $signature
+   * @return string
+   */
+  public function bindSignature($signature)
+  {
+    $key                  = Utils::truncateOrPad("\0");
+    $currentSignatureHash = Utils::hmac($key, Utils::unhexlify($this->getSignature()));
+    $newSignatureHash     = Utils::hmac($key, Utils::unhexlify($signature));
+    return Utils::hmac($key, $currentSignatureHash . $newSignatureHash);
   }
 
   private function initialSignature($key, $identifier)

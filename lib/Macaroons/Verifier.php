@@ -32,7 +32,7 @@ class Verifier
    */
   public function satisfyExact($predicate)
   {
-    if (!$predicate)
+    if (!isset($predicate))
       throw new \InvalidArgumentException('Must provide predicate');
     array_push($this->predicates, $predicate);
   }
@@ -46,7 +46,7 @@ class Verifier
    */
   public function satisfyGeneral($callback)
   {
-    if (!$callback)
+    if (!isset($callback))
       throw new \InvalidArgumentException('Must provide a callback function');
     if (!is_callable($callback))
       throw new \InvalidArgumentException('Callback must be a function');
@@ -75,11 +75,10 @@ class Verifier
     $this->calculatedSignature = Utils::hmac($key, $macaroon->getIdentifier());
     $this->verifyCaveats($macaroon, $dischargeMacaroons);
 
-    // TODO: bind signature
-    // if ($root != $macaroon)
-    // {
-    //   $this->calculatedSignature = $root->bindSignature(strtolower(Utils::hexlify($this->calculatedSignature)));
-    // }
+    if ($root != $macaroon)
+    {
+      $this->calculatedSignature = $root->bindSignature(strtolower(Utils::hexlify($this->calculatedSignature)));
+    }
 
     $signature = Utils::unhexlify($macaroon->getSignature());
     if ($this->signaturesMatch($this->calculatedSignature, $signature) === FALSE)

@@ -22,6 +22,15 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
                             'we used our secret key',
                             'https://mybank/'
                             );
+    $this->macaroonWithThirdPartyCaveat = new Macaroon(
+                                                        $this->secretKey,
+                                                        'we used our secret key',
+                                                        'https://mybank/'
+                                                        );
+    $caveatKey = '4; guaranteed random by a fair toss of the dice';
+    $caveatId = 'this was how we remind auth of key/pred';
+    $caveatLocation = 'https://auth.mybank/';
+    $this->macaroonWithThirdPartyCaveat->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
   }
 
   public function testPredicatesAreAddedForSatisfyExact()

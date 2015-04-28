@@ -59,4 +59,38 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
     // $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
     $this->markTestSkipped('Write a test for third party caveats when serializers are done');
   }
+
+  public function testPrepareForRequest()
+  {
+    $this->m->addFirstPartyCaveat('account = 3735928559');
+    $caveatKey  = '4; guaranteed random by a fair toss of the dice';
+    $identifier = 'this was how we remind auth of key/pred';
+    $this->m->addThirdPartyCaveat($caveatKey, $identifier, 'https://auth.mybank/');
+
+    $discharge  = new Macaroon(
+                                $caveatKey,
+                                $identifier,
+                                'https://auth.mybank/'
+                              );
+    $discharge->addFirstPartyCaveat('time < 2015-01-01T00:00');
+    $protectedDischarge = $this->m->prepareForRequest($discharge);
+    $this->assertNotEquals($discharge->getSignature(), $protectedDischarge->getSignature());
+  }
+
+  public function testBindSignature()
+  {
+    $this->m->addFirstPartyCaveat('account = 3735928559');
+    $caveatKey  = '4; guaranteed random by a fair toss of the dice';
+    $identifier = 'this was how we remind auth of key/pred';
+    $this->m->addThirdPartyCaveat($caveatKey, $identifier, 'https://auth.mybank/');
+
+    $discharge  = new Macaroon(
+                                $caveatKey,
+                                $identifier,
+                                'https://auth.mybank/'
+                              );
+    $discharge->addFirstPartyCaveat('time < 2015-01-01T00:00');
+    $boundSignature = $this->m->bindSignature($discharge->getSignature());
+    $this->assertNotEquals($discharge->getSignature(), $boundSignature);
+  }
 }

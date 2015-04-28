@@ -2,10 +2,6 @@
 
 - Serialization/Deserialization
   - JSON
-- Macaroon
-  - prepareForRequest
-  - Discharges
-    - bindSignature
 - Verifier
   - verifyDischarge
   - verifyThirdPartyCaveat
