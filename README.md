@@ -49,7 +49,7 @@ Files must end with `Test` e.g. `ClassTest.php`
   phpunit
   ```
 
-* Run tests on file change
+* Run tests on file change (optional)
   ```bash
   gem install watchr
   watchr ./autotest-watchr.rb
