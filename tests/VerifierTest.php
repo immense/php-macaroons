@@ -24,23 +24,11 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
                             );
   }
 
-  public function testSatisfyExactRequiresPredicate()
-  {
-    $this->setExpectedException('InvalidArgumentException');
-    $this->verifier->satisfyExact();
-  }
-
   public function testPredicatesAreAddedForSatisfyExact()
   {
     $this->verifier->satisfyExact('test = caveat');
     $expectedPredicates = array('test = caveat');
     $this->assertEquals($expectedPredicates, $this->verifier->getPredicates());
-  }
-
-  public function testSatisfyGeneralRequiresCallbackParameter()
-  {
-    $this->setExpectedException('InvalidArgumentException');
-    $this->verifier->satisfyGeneral();
   }
 
   public function testSatisfyGeneralRequiresCallbackFunction()
