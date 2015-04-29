@@ -122,13 +122,21 @@ class Macaroon
                       );
     foreach ($this->caveats as $caveat)
     {
+      $caveatKeys = array(
+                          'cid' => $caveat->getCaveatId()
+                          );
+      if ($caveat->getVerificationId() && $caveat->getCaveatLocation())
+      {
+        $caveatKeys = array_merge(
+                                  $caveatKeys,
+                                  array(
+                                        'vid' => $caveat->getVerificationId(),
+                                        'cl' => $caveat->getCaveatLocation()
+                                        )
+                                  );
+      }
       $p = new Packet();
-      $s = $s . $p->packetize(
-                                array(
-                                  'vid' => $caveat->getVerificationId(),
-                                  'cl' => $caveat->getCaveatLocation()
-                                )
-                              );
+      $s = $s . $p->packetize($caveatKeys);
     }
     $p = new Packet();
     $s = $s . $p->packetize(array('signature' => $this->signature));
