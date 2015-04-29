@@ -74,7 +74,7 @@ class Macaroon
     $truncatedOrPaddedSignature = Utils::truncateOrPad( $this->signature );
     // Generate cipher using libsodium
     $nonce = \Sodium::randombytes_buf(\Sodium::CRYPTO_SECRETBOX_NONCEBYTES);
-    $ciphertext = \Sodium::crypto_secretbox($truncatedOrPaddedSignature, $nonce, $derivedCaveatKey);
+    $ciphertext = $nonce . \Sodium::crypto_secretbox($derivedCaveatKey, $nonce, $truncatedOrPaddedSignature);
     $verificationId = Utils::base64_strict_encode($ciphertext);
     array_push($this->caveats, new Caveat($caveatId, $verificationId, $caveatLocation));
     $this->signature = Utils::signThirdPartyCaveat($this->signature, $verificationId, $caveatId);
@@ -201,7 +201,7 @@ class Macaroon
           $signature = $packet->getData();
         break;
         case 'cid':
-          $caveat = new Caveat($packet->getData());
+          array_push($caveats, new Caveat($packet->getData()));
         break;
         case 'vid':
           $caveat = $caveats[ count($caveats) - 1 ];

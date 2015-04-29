@@ -17,7 +17,7 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
                                       );
   }
 
-  public function testWithoutCaveatsTest()
+  public function testWithoutCaveats()
   {
     $expectedSignature = 'e3d9e02908526c4c0039ae15114115d97fdd68bf2ba379b342aaf0f617d0552f';
     $this->assertEquals($expectedSignature, $this->m->getSignature());
@@ -41,26 +41,30 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
   {
     $this->m->addFirstPartyCaveat('test = caveat');
     $expectedSignature = '197bac7a044af33332865b9266e26d493bdd668a660e44d88ce1a998c23dbd67';
+    $binarySerialization = 'MDAxZGxvY2F0aW9uIGh0dHBzOi8vbXliYW5rLwowMDI2aWRlbnRpZmllciB3ZSB1c2VkIG91ciBzZWNyZXQga2V5CjAwMTZjaWQgdGVzdCA9IGNhdmVhdAowMDJmc2lnbmF0dXJlIBl7rHoESvMzMoZbkmbibUk73WaKZg5E2IzhqZjCPb1nCg';
     $this->assertEquals($expectedSignature, $this->m->getSignature());
+    $this->assertEquals($binarySerialization, $this->m->serialize());
   }
 
-  public function testThirdPartyCaveat()
+  public function testSerializeDeserializeThirdPartyCaveat()
   {
-    // $caveatKey = '4; guaranteed random by a fair toss of the dice';
-    // $caveatId = 'this was how we remind auth of key/pred';
-    // $caveatLocation = 'https://auth.mybank/';
-    // $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
-    $this->markTestSkipped('Write a test for third party caveats when serializers are done');
+    $caveatKey = '4; guaranteed random by a fair toss of the dice';
+    $caveatId = 'this was how we remind auth of key/pred';
+    $caveatLocation = 'https://auth.mybank/';
+    $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
+    $m = Macaroon::deserialize($this->m->serialize());
+    $this->assertEquals($this->m->getSignature(), $m->getSignature());
   }
 
-  public function testFirstAndThirdPartyCaveats()
+  public function testSerializeDeserializeFirstAndThirdPartyCaveats()
   {
-    // $this->m->addFirstPartyCaveat('account = 3735928559');
-    // $caveatKey = '4; guaranteed random by a fair toss of the dice';
-    // $caveatId = 'this was how we remind auth of key/pred';
-    // $caveatLocation = 'https://auth.mybank/';
-    // $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
-    $this->markTestSkipped('Write a test for third party caveats when serializers are done');
+    $this->m->addFirstPartyCaveat('account = 3735928559');
+    $caveatKey = '4; guaranteed random by a fair toss of the dice';
+    $caveatId = 'this was how we remind auth of key/pred';
+    $caveatLocation = 'https://auth.mybank/';
+    $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
+    $m = Macaroon::deserialize($this->m->serialize());
+    $this->assertEquals($this->m->getSignature(), $m->getSignature());
   }
 
   public function testPrepareForRequest()

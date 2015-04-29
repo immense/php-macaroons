@@ -30,6 +30,16 @@ class Caveat
     return $this->verification_id;
   }
 
+  public function setCaveatLocation($caveatLocation)
+  {
+    $this->caveat_location = $caveatLocation;
+  }
+
+  public function setVerificationId($verificationId)
+  {
+    $this->verification_id = $verificationId;
+  }
+
   public function isFirstParty()
   {
     return $this->verification_id === NULL;
