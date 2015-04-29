@@ -1,9 +1,34 @@
 # PHP Macaroons Changelog
 
-## [Unreleased][unreleased] - 2015-04-27
+## [0.4.0] - 2015-04-27
 ### Added
+- Caveat#setCaveatLocation
+- Caveat#setVerificationId
+- Macaroon#getCaveats
+- Macaroon#getFirstPartyCaveats
+- Macaroon#getThirdPartyCaveats
+- Macaroon#prepareForRequest
+- Macaroon#bindSignature
+- `Verifier` class
+- Verifier#satisfyExact
+- Verifier#satisfyGeneral
+- Verifier#verifyCaveats
+- Verifier#verifyFirstPartyCaveat
+- Verifier#verify
+- Verifier#verifyDischarge
 - Added LICENSE file
 - Added watchr script for TDD
+
+### Changed
+- Use array_push for code readability
+- Split out base64 utility methods
+
+### Fixed
+- Fixed bugs with argument checking
+- Fixed a bug when deserializing third party caveats
+- Fixed libsodium integration
+- Fixed missing pad in Utils::base64_url_decode
+- Fixed issues using `strtr` by using `str_replace` instead
 
 ### Changed
 - Increased test coverage of `Utils` class

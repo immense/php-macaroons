@@ -33,12 +33,30 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
     $this->macaroonWithThirdPartyCaveat->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
   }
 
+  // public function testSatisfyExactRequiresPredicate()
+  // {
+  //   // Change error reporting for this test only
+  //   // phpunit must be run in isolation to prevent side effects
+  //   ini_set('error_reporting', E_ALL & ~E_WARNING);
+  //   $this->setExpectedException('InvalidArgumentException');
+  //   $this->verifier->satisfyExact();
+  // }
+
   public function testPredicatesAreAddedForSatisfyExact()
   {
     $this->verifier->satisfyExact('test = caveat');
     $expectedPredicates = array('test = caveat');
     $this->assertEquals($expectedPredicates, $this->verifier->getPredicates());
   }
+
+  // public function testSatisfyGeneralRequiresCallbackParameter()
+  // {
+  //   // Change error reporting for this test only
+  //   // phpunit must be run in isolation to prevent side effects
+  //   ini_set('error_reporting', E_ALL & ~E_WARNING);
+  //   $this->setExpectedException('InvalidArgumentException');
+  //   $this->verifier->satisfyGeneral();
+  // }
 
   public function testSatisfyGeneralRequiresCallbackFunction()
   {
