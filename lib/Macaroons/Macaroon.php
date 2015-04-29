@@ -105,6 +105,34 @@ class Macaroon
     return Utils::hmac($key, $currentSignatureHash . $newSignatureHash);
   }
 
+  public function inspect()
+  {
+    $str = "location {$this->location}\n";
+    $str .= "identifier {$this->identifier}\n";
+    foreach ($this->caveats as $caveat)
+    {
+      $caveatKeys = array(
+                          'cid' => $caveat->getCaveatId()
+                          );
+      if ($caveat->getVerificationId() && $caveat->getCaveatLocation())
+      {
+        $caveatKeys = array_merge(
+                                  $caveatKeys,
+                                  array(
+                                        'vid' => $caveat->getVerificationId(),
+                                        'cl' => $caveat->getCaveatLocation()
+                                        )
+                                  );
+      }
+      $caveatKeys = array_map(function($key, $value){
+        return "$key $value";
+      }, array_keys($caveatKeys), $caveatKeys);
+      $str .= join("\n", $caveatKeys) . "\n";
+    }
+    $str .= "signature {$this->getSignature()}";
+    return $str;
+  }
+
   private function initialSignature($key, $identifier)
   {
     return Utils::hmac( Utils::generateDerivedKey($key), $identifier);
