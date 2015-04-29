@@ -86,7 +86,29 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
 
   public function testShouldVerifyMacaroonWithThirdPartyCaveats()
   {
-    $this->markTestSkipped('TODO');
+    $this->m->addFirstPartyCaveat('account = 3735928559');
+    $caveatKey  = '4; guaranteed random by a fair toss of the dice';
+    $caveatId = 'this was how we remind auth of key/pred';
+    $caveatLocation = 'https://auth.mybank/';
+    $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
+
+    $discharge  = new Macaroon(
+                                $caveatKey,
+                                $caveatId,
+                                $caveatLocation
+                              );
+    $discharge->addFirstPartyCaveat('time < 2015-01-01T00:00');
+    $protectedDischarge = $this->m->prepareForRequest($discharge);
+
+    $this->verifier->satisfyExact('account = 3735928559');
+    $this->verifier->satisfyExact('time < 2015-01-01T00:00');
+    $this->assertTrue(
+                      $this->verifier->verify(
+                                              $this->m,
+                                              $this->secretKey,
+                                              array($protectedDischarge)
+                                              )
+                      );
   }
 
   public function testShouldNotVerifyMacaroonWithInvalidThirdPartyCaveats()

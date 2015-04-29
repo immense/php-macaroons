@@ -37,17 +37,32 @@ class Utils
 
   public static function base64_strict_encode($data)
   {
-    return strtr(base64_encode($data), array("\r\n" => '', "\r" => '', "\n" => ''));
+    $data = str_replace("\r\n", '', base64_encode($data));
+    $data = str_replace("\r", '', $data);
+    return str_replace("\n", '', $data);
+  }
+
+  public static function base64_url_safe_encode($data)
+  {
+    $data = str_replace('+', '-', self::base64_strict_encode($data));
+    return str_replace('/', '_', $data);
+  }
+
+  public static function base64_url_safe_decode($data)
+  {
+    $data = str_replace('-', '+', $data);
+    $data = str_replace('_', '/', $data);
+    return base64_decode($data);
   }
 
   public static function base64_url_encode($data)
   {
-    return rtrim(strtr(self::base64_strict_encode($data), array('+' => '-', '/' => '_')), '=');
+    return str_replace('=', '', self::base64_url_safe_encode($data));
   }
 
   public static function base64_url_decode($data)
   {
-    return base64_decode(str_pad(strtr($data, array('-' => '+', '_' => '/')), strlen($data) % 4, '=', STR_PAD_RIGHT));
+    return self::base64_url_safe_decode(str_pad($data, (4 - (strlen($data) % 4)) % 4, '=', STR_PAD_RIGHT));
   }
 
   public static function signFirstPartyCaveat($signature, $predicate)

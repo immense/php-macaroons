@@ -29,6 +29,18 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals($binarySerialization, $this->m->serialize());
   }
 
+  public function testSerializeWithPaddingStripsPadding()
+  {
+    $expectedBinarySerialization = 'MDAxY2xvY2F0aW9uIGh0dHA6Ly9teWJhbmsvCjAwMjZpZGVudGlmaWVyIHdlIHVzZWQgb3VyIHNlY3JldCBrZXkKMDAxOGNpZCB0ZXN0ID0gYSBjYXZlYXQKMDAyZnNpZ25hdHVyZSAOX3fqTY3ESWO6a5DZltZZReCDkfjbcdwSQDTdBrhApwo';
+    $m = new Macaroon(
+                      'this is our super secret key; only we should know it',
+                      'we used our secret key',
+                      'http://mybank/'
+                      );
+    $m->addFirstPartyCaveat('test = a caveat');
+    $this->assertEquals($expectedBinarySerialization, $m->serialize());
+  }
+
   public function testDeserialize()
   {
     $m = Macaroon::deserialize($this->m->serialize());
@@ -37,13 +49,19 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals($this->m->getLocation(), $m->getLocation());
   }
 
+  public function testDeserializeBinaryWithoutPaddingShouldAddPadding()
+  {
+    $m = Macaroon::deserialize('MDAxY2xvY2F0aW9uIGh0dHA6Ly9teWJhbmsvCjAwMjZpZGVudGlmaWVyIHdlIHVzZWQgb3VyIHNlY3JldCBrZXkKMDAxOGNpZCB0ZXN0ID0gYSBjYXZlYXQKMDAyZnNpZ25hdHVyZSAOX3fqTY3ESWO6a5DZltZZReCDkfjbcdwSQDTdBrhApwo=');
+    $this->assertEquals('0e5f77ea4d8dc44963ba6b90d996d65945e08391f8db71dc124034dd06b840a7', $m->getSignature());
+  }
+
   public function testFirstPartyCaveat()
   {
     $this->m->addFirstPartyCaveat('test = caveat');
     $expectedSignature = '197bac7a044af33332865b9266e26d493bdd668a660e44d88ce1a998c23dbd67';
-    $binarySerialization = 'MDAxZGxvY2F0aW9uIGh0dHBzOi8vbXliYW5rLwowMDI2aWRlbnRpZmllciB3ZSB1c2VkIG91ciBzZWNyZXQga2V5CjAwMTZjaWQgdGVzdCA9IGNhdmVhdAowMDJmc2lnbmF0dXJlIBl7rHoESvMzMoZbkmbibUk73WaKZg5E2IzhqZjCPb1nCg';
+    $expectedBinarySerialization = 'MDAxZGxvY2F0aW9uIGh0dHBzOi8vbXliYW5rLwowMDI2aWRlbnRpZmllciB3ZSB1c2VkIG91ciBzZWNyZXQga2V5CjAwMTZjaWQgdGVzdCA9IGNhdmVhdAowMDJmc2lnbmF0dXJlIBl7rHoESvMzMoZbkmbibUk73WaKZg5E2IzhqZjCPb1nCg';
     $this->assertEquals($expectedSignature, $this->m->getSignature());
-    $this->assertEquals($binarySerialization, $this->m->serialize());
+    $this->assertEquals($expectedBinarySerialization, $this->m->serialize());
   }
 
   public function testSerializeDeserializeThirdPartyCaveat()

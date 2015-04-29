@@ -22,7 +22,6 @@
 ### Removed
 - Remove unnecessary environment variables script for coveralls
 
-## [Unreleased][unreleased] - 2015-04-24
 ### Fixed
 - Fixes coveralls reporting
 
@@ -87,6 +86,8 @@ Adds first and third party caveats
 - Utils::signThirdPartyCaveat
 - Macaroon#addFirstPartyCaveat
 - Macaroon#addThirdPartyCaveat
+- Add description field to `composer.json`
+- Add repositories field to `composer.json`
 
 ### Changed
 - Caveat#getId renamed Caveat#getCaveatId
@@ -94,11 +95,6 @@ Adds first and third party caveats
 
 ### Fixed
 - Caveat identifier was not being set correctly
-
-## [Unreleased][unreleased] - 2015-04-22
-### Added
-- Add description field to `composer.json`
-- Add repositories field to `composer.json`
 
 ## [0.1.0] - 2015-04-22
 
@@ -122,7 +118,6 @@ Adds macaroon creation
   - `libsodium-php` installation instructions
   - Updated command to run tests
 
-## [Unreleased][unreleased] - 2015-04-17
 ### Added
 - Created composer project
 - Setup test suite and `phpunit.xml`

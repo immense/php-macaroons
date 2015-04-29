@@ -185,7 +185,7 @@ class Macaroon
       // TOOD: Replace 4 with PACKET_PREFIX_LENGTH
       $packetLength    = hexdec(substr($decoded, $index, 4));
       $packetDataStart = $index + 4;
-      $strippedPacket  = substr($decoded, $packetDataStart, strpos($decoded, "\n", $index) - $packetDataStart);
+      $strippedPacket  = substr($decoded, $packetDataStart, $packetLength - 5);
       $packet          = new Packet();
       $packet          = $packet->decode($strippedPacket);
 
