@@ -37,10 +37,4 @@ class PacketTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals('a', $packet->getKey());
     $this->assertEquals('b', $packet->getData());
   }
-
-  public function testDerserialize()
-  {
-    // $m = Macaroon::deserialize(Utils::base64_url_encode("0007a \n0008a b\n"));
-    $this->markTestSkipped('TODO');
-  }
 }

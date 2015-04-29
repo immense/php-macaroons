@@ -1,28 +1,52 @@
 # PHP Macaroons Changelog
 
-## [Unreleased][unreleased] - 2015-04-27
+## [0.4.0] - 2015-04-27
 ### Added
+- Caveat#setCaveatLocation
+- Caveat#setVerificationId
+- Macaroon#getCaveats
+- Macaroon#getFirstPartyCaveats
+- Macaroon#getThirdPartyCaveats
+- Macaroon#prepareForRequest
+- Macaroon#bindSignature
+- `Verifier` class
+- Verifier#satisfyExact
+- Verifier#satisfyGeneral
+- Verifier#verifyCaveats
+- Verifier#verifyFirstPartyCaveat
+- Verifier#verify
+- Verifier#verifyDischarge
 - Added LICENSE file
 - Added watchr script for TDD
 
 ### Changed
-- Increased test coverage of Utils class
+- Use array_push for code readability
+- Split out base64 utility methods
+
+### Fixed
+- Fixed bugs with argument checking
+- Fixed a bug when deserializing third party caveats
+- Fixed libsodium integration
+- Fixed missing pad in Utils::base64_url_decode
+- Fixed issues using `strtr` by using `str_replace` instead
+
+### Changed
+- Increased test coverage of `Utils` class
 
 ## [0.3.4] - 2015-04-24
 ### Fixed
-- Fixes Verifier skeleton test error
+- Fixes `Verifier` skeleton test error
 
 ## [0.3.4] - 2015-04-24
 ### Added
-- Added type hinting to Packet methods
-- Added test skeleton for Verifier
+- Added type hinting to `Packet` methods
+- Added test skeleton for `Verifier`
 - Added test skeleton for JSON serialization/deserialization
-- Added tests for Caveat class
+- Added tests for `Caveat` class
 
 ### Removed
 - Remove unnecessary environment variables script for coveralls
 
-## [Unreleased][unreleased] - 2015-04-24
 ### Fixed
 - Fixes coveralls reporting
 
@@ -37,14 +61,14 @@
 - Added .coveralls.yml
 
 ### Fixed
-- Fixed Packet class to be PHP 5.3 compatible when using array_map
+- Fixed `Packet` class to be PHP 5.3 compatible when using array_map
 
 ### Removed
 - HHVM from .travis.yml build matrix
 
 ## [0.3.1] - 2015-04-23
 ### Fixed
-- Changed size argument for Utils::truncateOrPad to be optional
+- Changed size argument for Utils::truncateOrPad to be optional (defaults to 32)
 
 ## [0.3.0] - 2015-04-23
 
@@ -54,7 +78,7 @@ Adds binary serialization and deserialization
 - Utils::base64_strict_encode
 - Utils::base64_url_encode
 - Utils::base64_url_decode
-- Packet class for packet data
+- `Packet` class for packet data
 - Packet#getKey
 - Packet#getData
 - Packet#packetize
@@ -74,7 +98,7 @@ Adds binary serialization and deserialization
 ## [0.2.1] - 2015-04-23
 
 ## Changed
-- Added comopser installation instructions to README
+- Added composer installation instructions to README
 
 ## [0.2.0] - 2015-04-22
 
@@ -87,6 +111,8 @@ Adds first and third party caveats
 - Utils::signThirdPartyCaveat
 - Macaroon#addFirstPartyCaveat
 - Macaroon#addThirdPartyCaveat
+- Add description field to `composer.json`
+- Add repositories field to `composer.json`
 
 ### Changed
 - Caveat#getId renamed Caveat#getCaveatId
@@ -94,11 +120,6 @@ Adds first and third party caveats
 
 ### Fixed
 - Caveat identifier was not being set correctly
-
-## [Unreleased][unreleased] - 2015-04-22
-### Added
-- Add description field to `composer.json`
-- Add repositories field to `composer.json`
 
 ## [0.1.0] - 2015-04-22
 
@@ -122,7 +143,6 @@ Adds macaroon creation
   - `libsodium-php` installation instructions
   - Updated command to run tests
 
-## [Unreleased][unreleased] - 2015-04-17
 ### Added
 - Created composer project
 - Setup test suite and `phpunit.xml`

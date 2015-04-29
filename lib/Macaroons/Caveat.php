@@ -10,7 +10,7 @@ class Caveat
 
   public function __construct($caveatId, $verificationId = NULL, $caveatLocation = NULL)
   {
-    $this->caveat_id = $caveatId;
+    $this->caveat_id       = $caveatId;
     $this->verification_id = $verificationId;
     $this->caveat_location = $caveatLocation;
   }
@@ -28,6 +28,16 @@ class Caveat
   public function getVerificationId()
   {
     return $this->verification_id;
+  }
+
+  public function setCaveatLocation($caveatLocation)
+  {
+    $this->caveat_location = $caveatLocation;
+  }
+
+  public function setVerificationId($verificationId)
+  {
+    $this->verification_id = $verificationId;
   }
 
   public function isFirstParty()

@@ -19,9 +19,10 @@ class Packet
     // $this isn't bound in anonymous functions
     return join('',
                     array_map(
-                      array($this, 'mapPacketsCallback'),
-                      array_keys($packets), $packets
-                    )
+                                array($this, 'mapPacketsCallback'),
+                                array_keys($packets),
+                                $packets
+                              )
                 );
   }
 
