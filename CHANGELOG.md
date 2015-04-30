@@ -1,5 +1,10 @@
 # PHP Macaroons Changelog
 
+## [0.4.3] - 2015-04-30
+### Added
+- Added Utils::startsWith
+- Added a test for verifying first party caveats using a callback
+
 ## [0.4.2] - 2015-04-30
 ### Removed
 - Removes finishes TODOs

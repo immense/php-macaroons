@@ -87,10 +87,19 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
     $this->verifier->verify($m, $this->secretKey);
   }
 
-  public function testShouldVerifyMacaroonWithFirstPartyCaveats()
+  public function testShouldVerifyMacaroonWithFirstPartyCaveatsWithPredicate()
   {
     $this->m->addFirstPartyCaveat('test = caveat');
     $this->verifier->satisfyExact('test = caveat');
+    $this->assertTrue($this->verifier->verify($this->m, $this->secretKey));
+  }
+
+  public function testShouldVerifyMacaroonWithFirstPartyCaveatsWithCallback()
+  {
+    $this->m->addFirstPartyCaveat('test = caveat');
+    $this->verifier->satisfyGeneral(function($caveatIdentifier){
+      return Utils::startsWith($caveatIdentifier, 'test =');
+    });
     $this->assertTrue($this->verifier->verify($this->m, $this->secretKey));
   }
 
@@ -129,9 +138,31 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
                       );
   }
 
-  public function testShouldNotVerifyMacaroonWithInvalidThirdPartyCaveats()
+  public function testShouldNotVerifyMacaroonWithIncorrectKey()
   {
-    // $this->setExpectedException('DomainException');
-    $this->markTestSkipped('TODO');
+    $this->setExpectedException('DomainException');
+    $this->m->addFirstPartyCaveat('account = 3735928559');
+    $caveatKey  = '4; guaranteed random by a fair toss of the dice';
+    $caveatId = 'this was how we remind auth of key/pred';
+    $caveatLocation = 'https://auth.mybank/';
+    $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
+
+    $discharge  = new Macaroon(
+                                $caveatKey,
+                                $caveatId,
+                                $caveatLocation
+                              );
+    $discharge->addFirstPartyCaveat('time < 2015-01-01T00:00');
+    $protectedDischarge = $this->m->prepareForRequest($discharge);
+
+    $this->verifier->satisfyExact('account = 3735928559');
+    $this->verifier->satisfyExact('time < 2015-01-01T00:00');
+    $this->assertTrue(
+                      $this->verifier->verify(
+                                              $this->m,
+                                              'wrong key',
+                                              array($protectedDischarge)
+                                              )
+                      );
   }
 }

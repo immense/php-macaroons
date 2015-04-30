@@ -35,6 +35,13 @@ class Utils
     return $str;
   }
 
+  public static function startsWith($str, $prefix)
+  {
+    if (!(is_string($str) && is_string($prefix)))
+      throw new \InvalidArgumentException('Both arguments must be strings');
+    return substr($str, 0, strlen($prefix)) === $prefix;
+  }
+
   public static function base64_strict_encode($data)
   {
     $data = str_replace("\r\n", '', base64_encode($data));

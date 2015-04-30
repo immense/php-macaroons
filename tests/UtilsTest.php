@@ -6,6 +6,12 @@ use Macaroons\Utils;
 
 class UtilsTest extends \PHPUnit_Framework_TestCase
 {
+  // TODO: use data provider
+  public function setUp()
+  {
+    $this->identifierStr = 'test = caveat';
+  }
+
   public function testHex()
   {
     $signatureHex = Utils::hexlify(Utils::hmac('foo', 'testing'));
@@ -16,6 +22,16 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
   {
     $derivedKey = Utils::hexlify( Utils::generateDerivedKey('this is our super secret key; only we should know it') );
     $this->assertEquals('A96173391E6BFA0356BBF095621B8AF1510968E770E4D27D62109B7DC374814B', $derivedKey );
+  }
+
+  public function testCaveatIdStartsWithMatch()
+  {
+    $this->assertTrue(Utils::startsWith($this->identifierStr, 'test ='));
+  }
+
+  public function testCaveatIdStartsWithDoesNotMatch()
+  {
+    $this->assertFalse(Utils::startsWith($this->identifierStr, 'foo = '));
   }
 
   public function testTruncatingString()
