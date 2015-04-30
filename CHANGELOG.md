@@ -1,5 +1,9 @@
 # PHP Macaroons Changelog
 
+## [0.4.2] - 2015-04-30
+### Removed
+- Removes finishes TODOs
+
 ## [0.4.1] - 2015-04-30
 ### Added
 - Test for Macaroon#getFirstPartyCaveats

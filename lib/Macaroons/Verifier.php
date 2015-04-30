@@ -153,7 +153,6 @@ class Verifier
     return $caveatMet;
   }
 
-  // TODO: Implement
   private function verifyThirdPartyCaveat(Caveat $caveat, Macaroon $rootMacaroon, Array $dischargeMacaroons)
   {
     $caveatMet = false;
