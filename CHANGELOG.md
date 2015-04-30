@@ -1,5 +1,15 @@
 # PHP Macaroons Changelog
 
+## [0.4.1] - 2015-04-30
+### Added
+- Test for Macaroon#getFirstPartyCaveats
+- Test for Macaroon#getThirdPartyCaveats
+- Test for invalid macaroon keys
+
+### Fixed
+- Fixes bug in Macaroon#getFirstPartyCaveats
+- Fixes bug in Macaroon#getThirdPartyCaveats
+
 ## [0.4.0] - 2015-04-27
 ### Added
 - Caveat#setCaveatLocation

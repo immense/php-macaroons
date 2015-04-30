@@ -34,14 +34,14 @@ class Macaroon
   public function getFirstPartyCaveats()
   {
     return array_filter($this->caveats, function(Caveat $caveat){
-      return $caveat->getIsFirstParty();
+      return $caveat->isFirstParty();
     });
   }
 
   public function getThirdPartyCaveats()
   {
     return array_filter($this->caveats, function(Caveat $caveat){
-      return $caveat->getIsThirdParty();
+      return $caveat->isThirdParty();
     });
   }
 
