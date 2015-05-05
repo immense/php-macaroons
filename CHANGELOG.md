@@ -1,5 +1,13 @@
 # PHP Macaroons Changelog
 
+## [0.5.0] - 2015-05-04
+### Added
+- Caveat#toArray
+- Test that multiple first party caveats are serialized correctly
+- Macaroon#serializeJSON
+- Macaroon::deserializeJSON
+- Added tests for JSON serialization/deserialization
+
 ## [0.4.3] - 2015-04-30
 ### Added
 - Added Utils::startsWith

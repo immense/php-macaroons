@@ -1,7 +1,9 @@
 <?php
 namespace Macaroons\Tests;
 
+use Macaroons\Utils;
 use Macaroons\Macaroon;
+use Macaroons\Packet;
 
 class MacaroonTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,8 +53,8 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
 
   public function testDeserializeDetectsInvalidMacaroonKeys()
   {
-    $p = new \Macaroons\Packet();
-    $invalidKey = \Macaroons\Utils::base64_url_encode($p->packetize(array('foo' => 'bar')));
+    $p = new Packet();
+    $invalidKey = Utils::base64_url_encode($p->packetize(array('foo' => 'bar')));
     $this->setExpectedException('DomainException');
     $m = Macaroon::deserialize($invalidKey);
   }
@@ -70,6 +72,14 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
     $expectedBinarySerialization = 'MDAxZGxvY2F0aW9uIGh0dHBzOi8vbXliYW5rLwowMDI2aWRlbnRpZmllciB3ZSB1c2VkIG91ciBzZWNyZXQga2V5CjAwMTZjaWQgdGVzdCA9IGNhdmVhdAowMDJmc2lnbmF0dXJlIBl7rHoESvMzMoZbkmbibUk73WaKZg5E2IzhqZjCPb1nCg';
     $this->assertEquals($expectedSignature, $this->m->getSignature());
     $this->assertEquals($expectedBinarySerialization, $this->m->serialize());
+  }
+
+  public function testSerializeMultipleFirstPartyCaveats()
+  {
+    $this->m->addFirstPartyCaveat('test = caveat');
+    $this->m->addFirstPartyCaveat('time < 2015-01-01T00:00');
+    $deserializedMacaroon = Macaroon::deserialize($this->m->serialize());
+    $this->assertEquals(2, count($deserializedMacaroon->getFirstPartyCaveats()));
   }
 
   public function testGetFirstPartyCaveats()

@@ -1,7 +1,6 @@
 <?php
 namespace Macaroons\Tests;
 
-use Macaroons\Macaroon;
 use Macaroons\Caveat;
 
 class CaveatTest extends \PHPUnit_Framework_TestCase
@@ -31,6 +30,22 @@ class CaveatTest extends \PHPUnit_Framework_TestCase
   public function testCaveatWithVerificationIdIsThirdParty()
   {
     $this->assertTrue($this->thirdPartyCaveat->isThirdParty());
+  }
+
+  public function testToArrayReturnsCorrectAttributesForFirstPartyCaveat()
+  {
+    $expectedArray = array('cid' => 'we used our secret key');
+    $this->assertEquals($expectedArray, $this->firstPartyCaveat->toArray());
+  }
+
+  public function testToArrayReturnsCorrectAttributesForThirdPartyCaveat()
+  {
+    $expectedArray = array(
+                            'cid' => 'we used our secret key',
+                            'vid' => 'this is the verification id',
+                            'cl'  => 'https://mybank/'
+                          );
+    $this->assertEquals($expectedArray, $this->thirdPartyCaveat->toArray());
   }
 
 }
