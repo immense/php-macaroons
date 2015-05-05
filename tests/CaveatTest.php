@@ -32,4 +32,20 @@ class CaveatTest extends \PHPUnit_Framework_TestCase
     $this->assertTrue($this->thirdPartyCaveat->isThirdParty());
   }
 
+  public function testToArrayReturnsCorrectAttributesForFirstPartyCaveat()
+  {
+    $expectedArray = array('cid' => 'we used our secret key');
+    $this->assertEquals($expectedArray, $this->firstPartyCaveat->toArray());
+  }
+
+  public function testToArrayReturnsCorrectAttributesForThirdPartyCaveat()
+  {
+    $expectedArray = array(
+                            'cid' => 'we used our secret key',
+                            'vid' => 'this is the verification id',
+                            'cl'  => 'https://mybank/'
+                          );
+    $this->assertEquals($expectedArray, $this->thirdPartyCaveat->toArray());
+  }
+
 }
