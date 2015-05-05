@@ -1,7 +1,6 @@
 <?php
 namespace Macaroons\Tests;
 
-use Macaroons\Macaroon;
 use Macaroons\Caveat;
 
 class CaveatTest extends \PHPUnit_Framework_TestCase

@@ -4,7 +4,6 @@ namespace Macaroons\Tests;
 
 use Macaroons\Utils;
 use Macaroons\Macaroon;
-use Macaroons\Packet;
 use Macaroons\Verifier;
 
 class VerifierTest extends \PHPUnit_Framework_TestCase

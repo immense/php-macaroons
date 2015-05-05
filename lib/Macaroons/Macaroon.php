@@ -222,4 +222,38 @@ class Macaroon
     $m->setSignature($signature);
     return $m;
   }
+
+  public function toJSON()
+  {
+    return json_encode(array(
+      'location' => $this->location,
+      'identifier' => $this->identifier,
+      'caveats' => array_map(function(Caveat $caveat){
+        return $caveat->toArray();
+      }, $this->getCaveats()),
+      'signature' => $this->getSignature()
+    ));
+  }
+
+  public static function fromJSON($serialized)
+  {
+    $data       = json_decode($serialized);
+    $location   = $data->location;
+    $identifier = $data->identifier;
+    $signature  = $data->signature;
+    $m          = new Macaroon(
+                                'no_key',
+                                $identifier,
+                                $location
+                              );
+    $caveats = array_map(function(stdClass $data){
+      $caveatId       = $data->cid;
+      $verificationId = $data->vid;
+      $caveatLocation = $data->cl;
+      return new Caveat($caveatId, $verificationId, $caveatLocation);
+    }, $data->caveats);
+    $m->setCaveats($caveats);
+    $m->setSignature(Utils::unhexlify($signature));
+    return $m;
+  }
 }

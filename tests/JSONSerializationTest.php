@@ -11,25 +11,49 @@ class JSONSerializationTest extends \PHPUnit_Framework_TestCase
   protected function setUp()
   {
     $this->m = new Macaroon(
-                                      'this is our super secret key; only we should know it',
-                                      'we used our secret key',
-                                      'https://mybank/'
-                                      );
+                              'this is our super secret key; only we should know it',
+                              'we used our secret key',
+                              'https://mybank/'
+                            );
   }
 
   public function testJSONSerialization()
   {
-    // $json = '{"id":"this is our super secret key; only we should know it","location":"we used our secret key","signature":"MDAxZGxvY2F0aW9uIGh0dHBzOi8vbXliYW5rLwowMDI2aWRlbnRpZmllciB3ZSB1c2VkIG91ciBzZWNyZXQga2V5CjAwMmZzaWduYXR1cmUg49ngKQhSbEwAOa4VEUEV2X_daL8ro3mzQqrw9hfQVS8K"}';
-    // $this->assertEquals($json, $this->m->serializeJson());
-    $this->markTestSkipped('JSON serialization not implemented');
+    $json = '{"location":"https:\/\/mybank\/","identifier":"we used our secret key","caveats":[],"signature":"e3d9e02908526c4c0039ae15114115d97fdd68bf2ba379b342aaf0f617d0552f"}';
+    $this->assertEquals($json, $this->m->toJSON());
   }
 
   public function testDeserializesJSON()
   {
-    // $deserialized = Macaroon::fromJSON('{"id":"this is our super secret key; only we should know it","location":"we used our secret key","signature":"MDAxZGxvY2F0aW9uIGh0dHBzOi8vbXliYW5rLwowMDI2aWRlbnRpZmllciB3ZSB1c2VkIG91ciBzZWNyZXQga2V5CjAwMmZzaWduYXR1cmUg49ngKQhSbEwAOa4VEUEV2X_daL8ro3mzQqrw9hfQVS8K"}');
-    // $this->assertEquals($this->m->getIdentifier(), $deserialized->getIdentifier());
-    // $this->assertEquals($this->m->getLocation(), $deserialized->getLocation());
-    // $this->assertEquals($this->m->getSignature(), $deserialized->getSignature());
-    $this->markTestSkipped('JSON desserialization not implemented');
+    $deserialized = Macaroon::fromJSON($this->m->toJSON());
+    $this->assertEquals($this->m->getIdentifier(), $deserialized->getIdentifier());
+    $this->assertEquals($this->m->getLocation(), $deserialized->getLocation());
+    $this->assertEquals($this->m->getSignature(), $deserialized->getSignature());
   }
+
+  public function testSerializeJSONWithFirstPartyCaveat()
+  {
+    $this->markTestSkipped('TODO');
+  }
+
+  public function testSerializeJSONWithMultipleFirstPartyCaveats()
+  {
+    $this->markTestSkipped('TODO');
+  }
+
+  public function testSerializeJSONWithFirstAndThirdPartyCaveats()
+  {
+    $this->markTestSkipped('TODO');
+  }
+
+  public function testSerializeJSONWithThirdPartyCaveat()
+  {
+    $this->markTestSkipped('TODO');
+  }
+
+  public function testSerializeJSONWithMultipleThirdPartyCaveats()
+  {
+    $this->markTestSkipped('TODO');
+  }
+
 }

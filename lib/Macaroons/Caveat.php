@@ -50,4 +50,20 @@ class Caveat
     return !$this->isFirstParty();
   }
 
+  public function toArray()
+  {
+    $caveatKeys = array('cid' => $this->getCaveatId());
+    if ($this->isThirdParty())
+    {
+      $caveatKeys = array_merge(
+                                $caveatKeys,
+                                array(
+                                      'vid' => $this->getVerificationId(),
+                                      'cl' => $this->getCaveatLocation()
+                                      )
+                                );
+    }
+    return $caveatKeys;
+  }
+
 }
