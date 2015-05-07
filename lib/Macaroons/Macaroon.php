@@ -74,8 +74,7 @@ class Macaroon
     $truncatedOrPaddedSignature = Utils::truncateOrPad( $this->signature );
     // Generate cipher using libsodium
     $nonce = \Sodium::randombytes_buf(\Sodium::CRYPTO_SECRETBOX_NONCEBYTES);
-    $ciphertext = $nonce . \Sodium::crypto_secretbox($derivedCaveatKey, $nonce, $truncatedOrPaddedSignature);
-    $verificationId = Utils::base64_strict_encode($ciphertext);
+    $verificationId = $nonce . \Sodium::crypto_secretbox($derivedCaveatKey, $nonce, $truncatedOrPaddedSignature);
     array_push($this->caveats, new Caveat($caveatId, $verificationId, $caveatLocation));
     $this->signature = Utils::signThirdPartyCaveat($this->signature, $verificationId, $caveatId);
   }
@@ -111,23 +110,7 @@ class Macaroon
     $str .= "identifier {$this->identifier}\n";
     foreach ($this->caveats as $caveat)
     {
-      $caveatKeys = array(
-                          'cid' => $caveat->getCaveatId()
-                          );
-      if ($caveat->getVerificationId() && $caveat->getCaveatLocation())
-      {
-        $caveatKeys = array_merge(
-                                  $caveatKeys,
-                                  array(
-                                        'vid' => $caveat->getVerificationId(),
-                                        'cl' => $caveat->getCaveatLocation()
-                                        )
-                                  );
-      }
-      $caveatKeys = array_map(function($key, $value){
-        return "$key $value";
-      }, array_keys($caveatKeys), $caveatKeys);
-      $str .= join("\n", $caveatKeys) . "\n";
+      $str .= "$caveat\n";
     }
     $str .= "signature {$this->getSignature()}";
     return $str;
@@ -229,7 +212,10 @@ class Macaroon
       'location' => $this->location,
       'identifier' => $this->identifier,
       'caveats' => array_map(function(Caveat $caveat){
-        return $caveat->toArray();
+        $caveatAsArray = $caveat->toArray();
+        if ($caveat->isThirdParty())
+          $caveatAsArray['vid'] = Utils::hexlify($caveatAsArray['vid']);
+        return $caveatAsArray;
       }, $this->getCaveats()),
       'signature' => $this->getSignature()
     ));

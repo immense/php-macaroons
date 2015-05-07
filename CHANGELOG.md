@@ -1,5 +1,12 @@
 # PHP Macaroons Changelog
 
+## [0.5.2] - 2015-05-07
+### Added
+- Added Caveat#__toString
+
+### Fixed
+- Fixed an issue with binary serialization/deserialization with third party caveats
+
 ## [0.5.1] - 2015-05-07
 ### Changed
 - Switched to using the official php-coveralls
