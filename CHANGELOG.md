@@ -1,5 +1,10 @@
 # PHP Macaroons Changelog
 
+## [0.5.1] - 2015-05-07
+### Changed
+- Switched to using the official php-coveralls
+- Updated TODO.md
+
 ## [0.5.0] - 2015-05-04
 ### Added
 - Caveat#toArray
