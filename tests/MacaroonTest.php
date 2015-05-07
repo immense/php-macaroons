@@ -127,13 +127,10 @@ class MacaroonTest extends \PHPUnit_Framework_TestCase
     $this->m->addThirdPartyCaveat($caveatKey, $caveatId, $caveatLocation);
     $thirdPartyCaveats = $this->m->getThirdPartyCaveats();
     $thirdPartyCaveat = array_pop($thirdPartyCaveats);
-    $verificationId   = $thirdPartyCaveat->getVerificationId();
     $expected = "location {$this->m->getLocation()}\n";
     $expected .= "identifier {$this->m->getIdentifier()}\n";
     $expected .= "cid account = 3735928559\n";
-    $expected .= "cid $caveatId\n";
-    $expected .= "vid $verificationId\n";
-    $expected .= "cl $caveatLocation\n";
+    $expected .= "$thirdPartyCaveat\n";
     $expected .= "signature {$this->m->getSignature()}";
     $this->assertEquals($expected, $this->m->inspect());
   }

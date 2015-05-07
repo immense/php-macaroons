@@ -66,4 +66,14 @@ class Caveat
     return $caveatKeys;
   }
 
+  public function __toString()
+  {
+    $caveatAsArray = $this->toArray();
+    if ($this->isThirdParty())
+      $caveatAsArray['vid'] = Utils::hexlify($caveatAsArray['vid']);
+    return join("\n", array_map(function($key, $value) {
+      return "$key $value";
+    }, array_keys($caveatAsArray), $caveatAsArray));
+  }
+
 }
