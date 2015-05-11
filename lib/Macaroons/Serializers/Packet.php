@@ -1,6 +1,6 @@
 <?php
 
-namespace Macaroons;
+namespace Macaroons\Serializers;
 
 class Packet
 {
