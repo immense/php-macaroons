@@ -56,8 +56,8 @@ Files must end with `Test` e.g. `ClassTest.php`
 
 * Run tests on file change (optional)
   ```bash
-  gem install watchr
-  watchr ./autotest-watchr.rb
+  gem install observr
+  observr ./autotest-observr.rb
   ```
 
 ## HHVM

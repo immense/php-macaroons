@@ -24,7 +24,7 @@
     "psr-4": { "Macaroons\\": "lib/Macaroons" }
   },
   "require": {
-    "php": ">=5.3.0",
+    "php": ">=5.5",
     "ext-libsodium": "1.*"
   },
   "require-dev": {

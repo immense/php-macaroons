@@ -13,6 +13,7 @@ matrix:
   fast_finish: true
   allow_failures:
     - php: 5.3
+    - php: 5.4
     - php: 7.0
     - php: hhvm
 
@@ -29,7 +30,7 @@ addons:
 
 before_script:
   - composer selfupdate
-  - sed -i s#\>=5.4.0#\>=5.3.0#g composer.json
+  - sed -i s#\>=5.5#\>=5.3.0#g composer.json
   - ./bin/install-dependencies.sh
   - composer install --prefer-source --no-ansi --no-interaction
 
