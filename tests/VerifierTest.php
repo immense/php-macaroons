@@ -6,6 +6,9 @@ use Macaroons\Utils;
 use Macaroons\Macaroon;
 use Macaroons\Verifier;
 
+use Macaroons\Exceptions\SignatureMismatchException;
+use Macaroons\Exceptions\CaveatUnsatisfiedException;
+
 class VerifierTest extends \PHPUnit_Framework_TestCase
 {
   // TODO: use a data provider
@@ -77,7 +80,7 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
 
   public function testShouldNotVerifyInvalidRootMacaroon()
   {
-    $this->setExpectedException('DomainException');
+    $this->setExpectedException('Macaroons\Exceptions\SignatureMismatchException');
     $m = new Macaroon(
                       'this is not our super secret key;',
                       'we used our secret key',
@@ -104,7 +107,7 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
 
   public function testShouldNotVerifyMacaroonWithInvalidFirstPartyCaveats()
   {
-    $this->setExpectedException('DomainException');
+    $this->setExpectedException('Macaroons\Exceptions\CaveatUnsatisfiedException');
     $this->m->addFirstPartyCaveat('test = caveat');
     $this->verifier->satisfyExact('test = foobar');
     $this->assertTrue($this->verifier->verify($this->m, $this->secretKey));
@@ -139,7 +142,7 @@ class VerifierTest extends \PHPUnit_Framework_TestCase
 
   public function testShouldNotVerifyMacaroonWithIncorrectKey()
   {
-    $this->setExpectedException('DomainException');
+    $this->setExpectedException('Macaroons\Exceptions\SignatureMismatchException');
     $this->m->addFirstPartyCaveat('account = 3735928559');
     $caveatKey  = '4; guaranteed random by a fair toss of the dice';
     $caveatId = 'this was how we remind auth of key/pred';

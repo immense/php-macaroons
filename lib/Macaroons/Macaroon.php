@@ -2,6 +2,8 @@
 
 namespace Macaroons;
 
+use Macaroons\Exceptions\InvalidMacaroonKeyException;
+
 class Macaroon
 {
   private $id;
@@ -195,7 +197,7 @@ class Macaroon
           $caveat->setCaveatLocation($packet->getData());
         break;
         default:
-          throw new \DomainException('Invalid key in binary macaroon. Macaroon may be corrupted.');
+          throw new InvalidMacaroonKeyException('Invalid key in binary macaroon. Macaroon may be corrupted.');
         break;
       }
       $index = $index + $packetLength;
