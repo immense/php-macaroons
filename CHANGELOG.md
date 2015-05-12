@@ -1,5 +1,11 @@
 # PHP Macaroons Changelog
 
+## [0.5.3] - 2015-05-12
+### Added
+- `CaveatUnsatisfiedException`
+- `SignatureMismatchException`
+- `InvalidMacaroonKeyException`
+
 ## [0.5.2] - 2015-05-07
 ### Added
 - Added Caveat#__toString

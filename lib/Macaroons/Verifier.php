@@ -2,6 +2,9 @@
 
 namespace Macaroons;
 
+use Macaroons\Exceptions\SignatureMismatchException;
+use Macaroons\Exceptions\CaveatUnsatisfiedException;
+
 class Verifier
 {
   private $predicates = array();
@@ -95,7 +98,7 @@ class Verifier
    * @param  Macaroon    $macaroon
    * @param  string      $key
    * @param  Array|array $dischargeMacaroons
-   * @return boolean|throws DomainException
+   * @return boolean|throws SignatureMismatchException
    */
   public function verifyDischarge(Macaroon $rootMacaroon, Macaroon $macaroon, $key, Array $dischargeMacaroons = array())
   {
@@ -110,7 +113,7 @@ class Verifier
     $signature = Utils::unhexlify($macaroon->getSignature());
     if ($this->signaturesMatch($this->calculatedSignature, $signature) === FALSE)
     {
-      throw new \DomainException('Signatures do not match.');
+      throw new SignatureMismatchException('Signatures do not match.');
     }
     return true;
   }
@@ -130,7 +133,7 @@ class Verifier
       else if ($caveat->isThirdParty())
         $caveatMet = $this->verifyThirdPartyCaveat($caveat, $macaroon, $dischargeMacaroons);
       if (!$caveatMet)
-        throw new \DomainException("Caveat not met. Unable to satisfy: {$caveat->getCaveatId()}");
+        throw new CaveatUnsatisfiedException("Caveat not met. Unable to satisfy: {$caveat->getCaveatId()}");
     }
   }
 
@@ -164,7 +167,7 @@ class Verifier
     $caveatMacaroon = array_shift($dischargesMatchingCaveat);
 
     if (!$caveatMacaroon)
-      throw new \DomainException("Caveat not met. No discharge macaroon found for identifier: {$caveat->getCaveatId()}");
+      throw new CaveatUnsatisfiedException("Caveat not met. No discharge macaroon found for identifier: {$caveat->getCaveatId()}");
 
     $caveatKey = $this->extractCaveatKey($this->calculatedSignature, $caveat);
     $caveatMacaroonVerifier = new Verifier();
