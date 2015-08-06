@@ -1,8 +1,10 @@
 ## Macaroons
-[![Build Status](https://travis-ci.org/immense/php-macaroons.svg?branch=master)](https://travis-ci.org/immense/php-macaroons)
-[![Latest Stable Version](https://poser.pugx.org/immense/macaroons/v/stable)](https://packagist.org/packages/immense/macaroons)
-[![License](https://poser.pugx.org/immense/macaroons/license.svg)](https://packagist.org/packages/immense/macaroons)
-[![Coverage Status](https://coveralls.io/repos/immense/php-macaroons/badge.svg?branch=master)](https://coveralls.io/r/immense/php-macaroons?branch=master)
+[![Build Status](https://img.shields.io/travis/immense/php-macaroons.svg?style=flat)](https://travis-ci.org/immense/php-macaroons)
+[![HHVM Tested](https://img.shields.io/hhvm/immense/macaroons.svg?style=flat)](https://travis-ci.org/immense/php-macaroons)
+[![Latest Stable Version](https://img.shields.io/packagist/v/immense/macaroons.svg?style=flat)](https://packagist.org/packages/immense/macaroons)
+[![License](https://img.shields.io/packagist/l/immense/macaroons.svg?style=flat)](https://packagist.org/packages/immense/macaroons)
+[![Coverage Status](https://img.shields.io/coveralls/immense/php-macaroons.svg?style=flat)](https://coveralls.io/r/immense/php-macaroons?branch=master)
+[![Dependency Status](https://img.shields.io/versioneye/d/php/immense:macaroons.svg?style=flat)](https://www.versioneye.com/user/projects/55c3a548653762001a002e0b)
 
 This is a PHP implementation of Macaroons. It is still under active development.
 
