@@ -1,8 +1,8 @@
 ## Macaroons
 [![Build Status](https://travis-ci.org/immense/php-macaroons.svg?branch=master)](https://travis-ci.org/immense/php-macaroons)
-[![Coverage Status](https://coveralls.io/repos/immense/php-macaroons/badge.svg?branch=master)](https://coveralls.io/r/immense/php-macaroons?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/immense/macaroons/v/stable)](https://packagist.org/packages/immense/macaroons)
-
+[![License](https://poser.pugx.org/immense/macaroons/license.svg)](https://packagist.org/packages/immense/macaroons)
+[![Coverage Status](https://coveralls.io/repos/immense/php-macaroons/badge.svg?branch=master)](https://coveralls.io/r/immense/php-macaroons?branch=master)
 
 This is a PHP implementation of Macaroons. It is still under active development.
 
@@ -62,4 +62,4 @@ bindings do not support HHVM.
 
 ## License
 
-[![License](https://poser.pugx.org/immense/macaroons/license.svg)](./LICENSE)
+[php-macaroons](https://github.com/immense/php-macaroons) is licensed under the MIT license. Please see the [license](LICENSE) for more information.
