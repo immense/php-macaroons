@@ -6,15 +6,24 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7.0
+  - hhvm
 
-before_script:
-  - ./bin/install-dependencies.sh
-  - composer install --prefer-source --no-ansi --no-interaction
+matrix:
+  allow_failures:
+    - php: 5.3
+    - php: 7.0
+    - php: hhvm
 
 cache:
   directories:
     - $HOME/libsodium
     - vendor
+
+before_script:
+  - sed -i s#\>=5.4.0#\>=5.3.0#g composer.json
+  - ./bin/install-dependencies.sh
+  - composer install --prefer-source --no-ansi --no-interaction
 
 script: phpunit
 
