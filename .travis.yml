@@ -1,5 +1,5 @@
 language: php
-sudo: true
+sudo: false
 
 php:
   - 5.3
@@ -8,11 +8,15 @@ php:
   - 5.6
 
 before_script:
-  - ./bin/install-libsodium.sh
-  - composer self-update
+  - ./bin/install-dependencies.sh
   - composer install --prefer-source --no-ansi --no-interaction
+
+cache:
+  directories:
+    - $HOME/libsodium
 
 script: phpunit
 
 after_script:
   - php vendor/bin/coveralls -v
+
