@@ -6,7 +6,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/immense/php-macaroons.svg?style=flat)](https://coveralls.io/r/immense/php-macaroons?branch=master)
 [![Dependency Status](https://img.shields.io/versioneye/d/php/immense:macaroons.svg?style=flat)](https://www.versioneye.com/user/projects/55c3a548653762001a002e0b)
 
-This is a PHP implementation of Macaroons. It is still under active development.
+This PHP library provides an implementation of [macaroons](http://hackingdistributed.com/2014/05/16/macaroons-are-better-than-cookies) which allow decentralized delegation, attenuation, and verification.
 
 ## Requirements
 
