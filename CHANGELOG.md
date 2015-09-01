@@ -1,5 +1,14 @@
 # PHP Macaroons Changelog
 
+## [0.5.4] - 2015-09-01
+### Changed
+- Updated `phpunit` to `4.*` which is currently 4.8
+
+### Removed
+- `symfony/serializer`
+- `symfony/debug`
+- `symfony/stopwatch`
+
 ## [0.5.3] - 2015-05-12
 ### Added
 - `CaveatUnsatisfiedException`
