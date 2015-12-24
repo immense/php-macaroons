@@ -1,5 +1,10 @@
 # PHP Macaroons Changelog
 
+## [1.0.0] - 2015-12-23
+### Changed
+- Updated `libsodium` to `1.*` which is currently 1.0.2
+- Updated travis build script
+
 ## [0.5.4] - 2015-09-01
 ### Changed
 - Updated `phpunit` to `4.*` which is currently 4.8
