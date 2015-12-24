@@ -11,8 +11,8 @@ This PHP library provides an implementation of [macaroons](http://hackingdistrib
 ## Requirements
 
 * [PHP >= 5.4.0](http://php.net)
-* [libsodium](https://github.com/jedisct1/libsodium)
-* [libsodium-php](https://github.com/jedisct1/libsodium-php)
+* [libsodium 1.x](https://github.com/jedisct1/libsodium)
+* [libsodium-php 1.x](https://github.com/jedisct1/libsodium-php)
 
 ## Installing `libsodium-php`
 
