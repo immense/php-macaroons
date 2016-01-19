@@ -64,4 +64,4 @@ bindings do not support HHVM.
 
 ## License
 
-[php-macaroons](https://github.com/immense/php-macaroons) is licensed under the MIT license. Please see the [license](LICENSE) for more information.
+[php-macaroons](https://github.com/immense/php-macaroons) is licensed under the MIT license. Please see the [license](MIT-LICENSE) for more information.
