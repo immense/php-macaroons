@@ -43,6 +43,8 @@ In your project directory:
 
 ## Tests
 
+N.B. phpunit 5 requires PHP >= 5.6
+
 Files must end with `Test` e.g. `ClassTest.php`
 
 * From the `php-macaroons` root directory:
