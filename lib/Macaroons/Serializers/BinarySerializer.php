@@ -10,8 +10,8 @@ class BinarySerializer extends BaseSerializer
 {
   public function serialize()
   {
-    $p = new Packet();
-    $s = $p->packetize(
+    $packet = new Packet();
+    $packet_string = $packet->packetize(
                         array(
                           'location' => $this->macaroon->getLocation(),
                           'identifier' => $this->macaroon->getIdentifier()
@@ -32,12 +32,12 @@ class BinarySerializer extends BaseSerializer
                                         )
                                   );
       }
-      $p = new Packet();
-      $s = $s . $p->packetize($caveatKeys);
+      $packet = new Packet();
+      $packet_string = $packet_string . $packet->packetize($caveatKeys);
     }
-    $p = new Packet();
-    $s = $s . $p->packetize(array('signature' => Utils::unhexlify($this->macaroon->getSignature())));
-    return Utils::base64_url_encode($s);
+    $packet = new Packet();
+    $packet_string = $packet_string . $packet->packetize(array('signature' => Utils::unhexlify($this->macaroon->getSignature())));
+    return Utils::base64_url_encode($packet_string);
   }
 
   public function deserialize($serialized)
@@ -86,9 +86,9 @@ class BinarySerializer extends BaseSerializer
       }
       $index = $index + $packetLength;
     }
-    $m = new Macaroon('no_key', $identifier, $location);
-    $m->setCaveats($caveats);
-    $m->setSignature($signature);
-    return $m;
+    $macaroon = new Macaroon('no_key', $identifier, $location);
+    $macaroon->setCaveats($caveats);
+    $macaroon->setSignature($signature);
+    return $macaroon;
   }
 }

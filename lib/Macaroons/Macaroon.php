@@ -158,7 +158,7 @@ class Macaroon
     $location   = $data->location;
     $identifier = $data->identifier;
     $signature  = $data->signature;
-    $m          = new Macaroon(
+    $macaroon   = new Macaroon(
                                 'no_key',
                                 $identifier,
                                 $location
@@ -169,8 +169,8 @@ class Macaroon
       $caveatLocation = $data->cl;
       return new Caveat($caveatId, $verificationId, $caveatLocation);
     }, $data->caveats);
-    $m->setCaveats($caveats);
-    $m->setSignature(Utils::unhexlify($signature));
-    return $m;
+    $macaroon->setCaveats($caveats);
+    $macaroon->setSignature(Utils::unhexlify($signature));
+    return $macaroon;
   }
 }
