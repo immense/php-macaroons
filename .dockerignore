@@ -1,0 +1,8 @@
+CHANGELOG.md
+TODO.md
+README.md
+MIT-LICENSE
+Dockerfile
+docker-compose.yml
+docs/*
+mkdocs.yml

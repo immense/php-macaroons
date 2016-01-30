@@ -1,0 +1,7 @@
+test:
+  build: .
+  container_name: 'php-macaroons'
+  command: '/bin/bash -c "source ~/.phpbrew/bashrc && phpbrew use 5.5.31 && phpunit"'
+  working_dir: /usr/src
+  volumes:
+    - .:/usr/src
