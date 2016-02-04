@@ -5,9 +5,18 @@ namespace Macaroons\Serializers;
 use Macaroons\Utils;
 use Macaroons\Macaroon;
 use Macaroons\Caveat;
+use Macaroons\Exceptions\InvalidMacaroonKeyException;
 
+/**
+ * Class responsible for serialization and deserialization of Base64 "binary"
+ * Macaroons
+ */
 class BinarySerializer extends BaseSerializer
 {
+  /**
+   * creates a binary representation of a Macaroon
+   * @return string Base64 encoded string of the binary representation
+   */
   public function serialize()
   {
     $packet = new Packet();
@@ -40,6 +49,11 @@ class BinarySerializer extends BaseSerializer
     return Utils::base64_url_encode($packet_string);
   }
 
+  /**
+   * Creates a new Macaroon from a Base64 encoded binary serialization
+   * @param  string $serialized
+   * @return Macaroon
+   */
   public function deserialize($serialized)
   {
     $location   = NULL;
@@ -81,7 +95,7 @@ class BinarySerializer extends BaseSerializer
           $caveat->setCaveatLocation($packet->getData());
         break;
         default:
-          throw new \DomainException('Invalid key in binary macaroon. Macaroon may be corrupted.');
+          throw new InvalidMacaroonKeyException('Invalid key in binary macaroon. Macaroon may be corrupted.');
         break;
       }
       $index = $index + $packetLength;

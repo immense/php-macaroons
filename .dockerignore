@@ -1,8 +1,8 @@
-CHANGELOG.md
-TODO.md
-README.md
+*.md
 MIT-LICENSE
 Dockerfile
 docker-compose.yml
 docs/*
-mkdocs.yml
+.coveralls.yml
+.groc.json
+.travis.yml

@@ -5,10 +5,29 @@ namespace Macaroons;
 use Macaroons\Exceptions\SignatureMismatchException;
 use Macaroons\Exceptions\CaveatUnsatisfiedException;
 
+/**
+ * Verifies Macaroon
+ */
 class Verifier
 {
+  /**
+   * Array of predicates that must be exactly satisfied
+   * @var array
+   */
   private $predicates = array();
+
+  /**
+   * Array of callables that return a boolean based on the Caveat passed into
+   * them during the verify function
+   * @var array
+   */
   private $callbacks = array();
+
+  /**
+   * The signature computed by the verifier which should match the signature
+   * from the Macaroon passed into the verify function
+   * @var string
+   */
   private $calculatedSignature;
 
   /**
@@ -94,10 +113,10 @@ class Verifier
 
   /**
    * [verifyDischarge description]
-   * @param  Macaroon    $rootMacaroon
-   * @param  Macaroon    $macaroon
-   * @param  string      $key
-   * @param  Array|array $dischargeMacaroons
+   * @param  Macaroon       $rootMacaroon
+   * @param  Macaroon       $macaroon
+   * @param  string         $key
+   * @param  Array|array    $dischargeMacaroons
    * @return boolean|throws SignatureMismatchException
    */
   public function verifyDischarge(Macaroon $rootMacaroon, Macaroon $macaroon, $key, Array $dischargeMacaroons = array())
@@ -121,7 +140,7 @@ class Verifier
   /**
    * verifies all first and third party caveats of macaroon are valid
    * @param  Macaroon
-   * @param  Array
+   * @param  Array|array
    */
   private function verifyCaveats(Macaroon $macaroon, Array $dischargeMacaroons = array())
   {
@@ -137,6 +156,11 @@ class Verifier
     }
   }
 
+  /**
+   * verifies first party caveats
+   * @param  Caveat $caveat
+   * @return boolean
+   */
   private function verifyFirstPartyCaveat(Caveat $caveat)
   {
     $caveatMet = false;
@@ -156,6 +180,13 @@ class Verifier
     return $caveatMet;
   }
 
+  /**
+   * verifies third party caveats
+   * @param  Caveat      $caveat
+   * @param  Macaroon    $rootMacaroon
+   * @param  Array|array $dischargeMacaroons
+   * @return boolean
+   */
   private function verifyThirdPartyCaveat(Caveat $caveat, Macaroon $rootMacaroon, Array $dischargeMacaroons)
   {
     $caveatMet = false;

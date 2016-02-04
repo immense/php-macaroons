@@ -2,17 +2,42 @@
 
 namespace Macaroons\Serializers;
 
+/**
+ * Simple value object that represents a component of a Macaroon, such as
+ * a Caveat's verification identifier
+ */
 class Packet
 {
   const PACKET_PREFIX_LENGTH = 4;
-  private $key;
-  private $data;
+
+  /**
+   * key for packet
+   * @var string
+   */
+  private $_key;
+
+  /**
+   * packet data
+   * @var string
+   */
+  private $_data;
+
+  /**
+   * Creates a new Packet with key and value
+   * @param string $key
+   * @param string $data
+   */
   public function __construct($key = NULL, $data = NULL)
   {
-    $this->key = $key;
-    $this->data = $data;
+    $this->_key = $key;
+    $this->_data = $data;
   }
 
+  /**
+   * encodes an array of packets into a string
+   * @param  Array|array $packets
+   * @return string
+   */
   public function packetize(Array $packets)
   {
     $self = $this;
@@ -27,16 +52,30 @@ class Packet
                 );
   }
 
+  /**
+   * returns packet's key, e.g. vid
+   * @return string
+   */
   public function getKey()
   {
-    return $this->key;
+    return $this->_key;
   }
 
+  /**
+   * returns data of packet
+   * @return string
+   */
   public function getData()
   {
-    return $this->data;
+    return $this->_data;
   }
 
+  /**
+   * encodes and pads packet into string representation for serialization
+   * @param  string $key
+   * @param  string $data
+   * @return string
+   */
   private function encode($key, $data)
   {
     $packetSize = self::PACKET_PREFIX_LENGTH + 2 + strlen($key) + strlen($data);
@@ -52,6 +91,11 @@ class Packet
     return $packet;
   }
 
+  /**
+   * decodes serialized version of packet into a Packet
+   * @param  string $packet
+   * @return Packet
+   */
   public function decode($packet)
   {
     $packets = explode(' ', $packet);

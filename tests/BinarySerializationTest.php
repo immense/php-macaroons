@@ -4,6 +4,7 @@ namespace Macaroons\Tests;
 use Macaroons\Utils;
 use Macaroons\Macaroon;
 use Macaroons\Serializers\Packet;
+use Macaroons\Exceptions\InvalidMacaroonKeyException;
 
 class BinarySerializationTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +56,7 @@ class BinarySerializationTest extends \PHPUnit_Framework_TestCase
   {
     $p = new Packet();
     $invalidKey = Utils::base64_url_encode($p->packetize(array('foo' => 'bar')));
-    $this->setExpectedException('DomainException');
+    $this->setExpectedException('Macaroons\Exceptions\InvalidMacaroonKeyException');
     $m = Macaroon::deserialize($invalidKey);
   }
 }

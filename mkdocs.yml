@@ -1,5 +1,0 @@
-site_name: PHP Macaroons
-theme: readthedocs
-pages:
-- [index.md, Docs, Home]
-- ['quick-start.md', Docs, Quick Start]
