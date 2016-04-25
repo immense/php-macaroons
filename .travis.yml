@@ -21,6 +21,12 @@ cache:
     - $HOME/libsodium
     - vendor
 
+addons:
+  apt:
+    packages:
+    - curl
+    - openssl
+
 before_script:
   - composer selfupdate
   - sed -i s#\>=5.4.0#\>=5.3.0#g composer.json
