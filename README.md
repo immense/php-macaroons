@@ -12,6 +12,10 @@ This PHP library provides an implementation of [macaroons](http://hackingdistrib
 * [libsodium 1.x](https://github.com/jedisct1/libsodium)
 * [libsodium-php 1.x](https://github.com/jedisct1/libsodium-php)
 
+__Note: libsodium-php 2.x may be used with the [compatibility layer](https://github.com/jedisct1/libsodium-php#libsodium-php-1x-compatibility-api-for-libsodium-php-2x) until this package is updated.__
+
+__libsodium is available with PHP 7.2__
+
 ## Installing `libsodium-php`
 
 * OS X using [homebrew](https://github.com/Homebrew/homebrew)
@@ -56,11 +60,6 @@ Files must end with `Test` e.g. `ClassTest.php`
   gem install watchr
   watchr ./autotest-watchr.rb
   ```
-
-## HHVM
-
-Currently [HHVM](http://hhvm.com) is not supported because the PHP libsodium
-bindings do not support HHVM.
 
 ## License
 
