@@ -75,13 +75,13 @@ class Macaroon
     $derivedCaveatKey = Utils::truncateOrPad( Utils::generateDerivedKey($caveatKey) );
     $truncatedOrPaddedSignature = Utils::truncateOrPad( $this->signature );
     // Generate cipher using libsodium
-    $nonce = \Sodium\randombytes_buf(\Sodium\CRYPTO_SECRETBOX_NONCEBYTES);
-    $verificationId = $nonce . \Sodium\crypto_secretbox($derivedCaveatKey, $nonce, $truncatedOrPaddedSignature);
+    $nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+    $verificationId = $nonce . sodium_crypto_secretbox($derivedCaveatKey, $nonce, $truncatedOrPaddedSignature);
     array_push($this->caveats, new Caveat($caveatId, $verificationId, $caveatLocation));
     $this->signature = Utils::signThirdPartyCaveat($this->signature, $verificationId, $caveatId);
-    \Sodium\memzero($caveatKey);
-    \Sodium\memzero($derivedCaveatKey);
-    \Sodium\memzero($caveatId);
+    sodium_memzero($caveatKey);
+    sodium_memzero($derivedCaveatKey);
+    sodium_memzero($caveatId);
   }
 
   /**
