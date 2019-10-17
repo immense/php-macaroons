@@ -201,10 +201,10 @@ class Verifier
   private function extractCaveatKey($signature, Caveat $caveat)
   {
     $verificationHash = $caveat->getVerificationId();
-    $nonce            = substr($verificationHash, 0, \Sodium\CRYPTO_SECRETBOX_NONCEBYTES);
-    $verificationId   = substr($verificationHash, \Sodium\CRYPTO_SECRETBOX_NONCEBYTES);
+    $nonce            = substr($verificationHash, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+    $verificationId   = substr($verificationHash, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
     $key              = Utils::truncateOrPad($signature);
-    return \Sodium\crypto_secretbox_open($verificationId, $nonce, $key);
+    return sodium_crypto_secretbox_open($verificationId, $nonce, $key);
   }
 
   /**
