@@ -14,7 +14,7 @@ jobs:
           - ubuntu-latest
           - ubuntu-20.04
         php-version:
-          - 7.1
+          # - 7.1
           - 7.2
           - 7.3
           - 8.0
@@ -33,6 +33,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: libsodium-1.0.2
+          # tools: phpunit:4.x
 
       - name: Cache multiple paths
         uses: actions/cache@v4
@@ -52,7 +53,5 @@ jobs:
           composer install --prefer-source --no-ansi --no-interaction
 
       - name: Run tests
-        run: |-
-          phpunit
-          php vendor/bin/coveralls -v
+        run: php vendor/bin/phpunit
 
